@@ -1,26 +1,50 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UsersService } from '../users/users.service';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { BadRequestException, ConflictException, UnauthorizedException } from '@nestjs/common';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async register(registerDto: RegisterDto) {
+    const fullName = registerDto.full_name ?? registerDto.fullname;
+    if (!fullName) {
+      throw new BadRequestException('full_name is required');
+    }
+
+    const existingUser = await this.usersService.findByEmail(registerDto.email);
+    if (existingUser) {
+      throw new ConflictException('User already exists');
+    }
+    const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+
+    const user = await this.usersService.create({
+      email: registerDto.email,
+      full_name: fullName,
+      password: hashedPassword,
+    });
+
+    return { user };
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async login(loginDto: { email: string; password: string }) {
+    const user = await this.usersService.findByEmail(loginDto.email);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    const isMatch = await bcrypt.compare(loginDto.password, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    const accessToken = this.jwtService.sign({ userId: user.id });
+    return { accessToken };
   }
 }
