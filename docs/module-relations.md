@@ -58,3 +58,12 @@ Các module feature export service để module khác inject:
 - `ReviewsModule` exports `ReviewsService`
 - `AuthModule` exports `AuthService` (nếu module khác cần verify token/guard tuỳ thiết kế)
 
+## Auth flow quick check
+
+1) `POST /auth/login` nhận `{ email, password }` → trả `{ accessToken }`
+
+2) Gọi `GET /auth/me` với header:
+
+`Authorization: Bearer <accessToken>`
+
+Khi đó `JwtStrategy.validate()` sẽ gán `req.user = { userId, email, role }` và decorator `@CurrentUser()` lấy ra đúng payload.

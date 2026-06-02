@@ -19,4 +19,13 @@ export class UsersService {
     const newUser = this.userRepository.create(user);
     return await this.userRepository.save(newUser);
   }
+  async findById(id: string) {
+    if (!id) {
+      throw new Error('id is undefined');
+    }
+
+    return this.userRepository.findOne({
+      where: { id },
+    });
+  }
 }
