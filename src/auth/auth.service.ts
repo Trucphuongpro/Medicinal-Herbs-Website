@@ -8,7 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
-
+import { UserRole } from '../users/enum/enum.userrole';
 @Injectable()
 export class AuthService {
   constructor(
@@ -32,6 +32,7 @@ export class AuthService {
       email: registerDto.email,
       full_name: fullName,
       password: hashedPassword,
+      role: UserRole.USER,
     });
 
     return { user };
@@ -55,6 +56,7 @@ export class AuthService {
     });
     return { accessToken };
   }
+
   async getMe(userId: string) {
     if (!userId) {
       throw new BadRequestException('userId is undefined');
