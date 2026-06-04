@@ -18,7 +18,7 @@ export class User {
   id!: string;
 
   @Column({ type: 'varchar', length: 255 })
-  full_name!: string;
+  fullname!: string;
 
   @Index({ unique: true })
   @Column({ type: 'varchar', length: 255, unique: true })

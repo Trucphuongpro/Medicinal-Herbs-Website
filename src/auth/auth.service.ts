@@ -8,6 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 import { UserRole } from '../users/enum/enum.userrole';
 @Injectable()
 export class AuthService {
@@ -17,11 +18,6 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const fullName = registerDto.full_name ?? registerDto.fullname;
-    if (!fullName) {
-      throw new BadRequestException('full_name is required');
-    }
-
     const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
       throw new ConflictException('User already exists');
@@ -30,7 +26,7 @@ export class AuthService {
 
     const user = await this.usersService.create({
       email: registerDto.email,
-      full_name: fullName,
+      fullname: registerDto.fullname,
       password: hashedPassword,
       role: UserRole.USER,
     });
@@ -38,7 +34,7 @@ export class AuthService {
     return { user };
   }
 
-  async login(loginDto: { email: string; password: string }) {
+  async login(loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
