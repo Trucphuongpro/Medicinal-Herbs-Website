@@ -8,6 +8,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UploadModule } from './upload/upload/upload.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,6 +43,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     CartsModule,
     OrdersModule,
     ReviewsModule,
+    UploadModule,
   ],
 })
 export class AppModule {}
