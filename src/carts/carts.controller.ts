@@ -1,42 +1,111 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { CartsService } from './carts.service';
-import { CreateCartDto } from './dto/create-cart.dto';
+import { AddToCartDto } from './dto/add_to_cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
+import type { CurrentUserPayload } from '../auth/decorator/current-user.decorator';
 
-@Controller('carts')
+@ApiTags('Cart')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('cart')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 
-  @Post()
-  create(@Body() createCartDto: CreateCartDto) {
-    return this.cartsService.create(createCartDto);
+  @Post('add')
+  @ApiOperation({ summary: 'Them san pham vao gio hang' })
+  @ApiBody({ type: AddToCartDto })
+  @ApiOkResponse({ description: 'Them san pham vao gio hang thanh cong' })
+  @ApiBadRequestResponse({
+    description: 'So luong khong hop le hoac vuot ton kho',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
+  @ApiNotFoundResponse({ description: 'Khong tim thay user hoac product' })
+  addItem(
+    @CurrentUser() user: CurrentUserPayload,
+    @Body() addToCartDto: AddToCartDto,
+  ) {
+    return this.cartsService.addItem(user.userId, addToCartDto);
   }
 
   @Get()
-  findAll() {
-    return this.cartsService.findAll();
+  @ApiOperation({ summary: 'Xem gio hang cua user dang nhap' })
+  @ApiOkResponse({ description: 'Lay gio hang thanh cong' })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
+  findCart(@CurrentUser() user: CurrentUserPayload) {
+    return this.cartsService.findByUser(user.userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cartsService.findOne(+id);
+  @Patch('item/:itemId')
+  @ApiOperation({ summary: 'Cap nhat so luong san pham trong gio hang' })
+  @ApiParam({ name: 'itemId', description: 'UUID cua cart item' })
+  @ApiBody({ type: UpdateCartDto })
+  @ApiOkResponse({ description: 'Cap nhat so luong thanh cong' })
+  @ApiBadRequestResponse({
+    description:
+      'Item ID khong dung UUID, so luong khong hop le hoac vuot ton kho',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
+  @ApiNotFoundResponse({ description: 'Khong tim thay cart item' })
+  updateItem(
+    @CurrentUser() user: CurrentUserPayload,
+    @Param('itemId', new ParseUUIDPipe()) itemId: string,
+    @Body() updateCartDto: UpdateCartDto,
+  ) {
+    return this.cartsService.updateItem(user.userId, itemId, updateCartDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-    return this.cartsService.update(+id, updateCartDto);
+  @Delete('item/:itemId')
+  @ApiOperation({ summary: 'Xoa san pham khoi gio hang' })
+  @ApiParam({ name: 'itemId', description: 'UUID cua cart item' })
+  @ApiOkResponse({ description: 'Xoa san pham khoi gio hang thanh cong' })
+  @ApiBadRequestResponse({ description: 'Item ID khong dung dinh dang UUID' })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
+  @ApiNotFoundResponse({ description: 'Khong tim thay cart item' })
+  removeItem(
+    @CurrentUser() user: CurrentUserPayload,
+    @Param('itemId', new ParseUUIDPipe()) itemId: string,
+  ) {
+    return this.cartsService.removeItem(user.userId, itemId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cartsService.remove(+id);
+  @Delete('clear')
+  @ApiOperation({ summary: 'Xoa toan bo gio hang' })
+  @ApiOkResponse({ description: 'Xoa toan bo gio hang thanh cong' })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
+  clear(@CurrentUser() user: CurrentUserPayload) {
+    return this.cartsService.clear(user.userId);
   }
 }

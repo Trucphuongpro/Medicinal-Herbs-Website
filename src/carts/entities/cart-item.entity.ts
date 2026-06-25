@@ -1,4 +1,11 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { Cart } from './cart.entity';
 import { Product } from '../../products/entities/product.entity';
 
@@ -19,10 +26,14 @@ export class CartItem {
   @ManyToOne(() => Cart, (cart) => cart.items, { onDelete: 'CASCADE' })
   cart: Cart;
 
-  @ManyToOne(() => Product, (product) => product.cart_items, { onDelete: 'RESTRICT' })
+  @ManyToOne(() => Product, (product) => product.cart_items, {
+    onDelete: 'RESTRICT',
+  })
   product: Product;
 
   @Column({ type: 'int' })
   quantity: number;
-}
 
+  @Column({ type: 'numeric', precision: 12, scale: 2 })
+  price: string;
+}

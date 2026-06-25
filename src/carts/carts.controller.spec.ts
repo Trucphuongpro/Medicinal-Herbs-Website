@@ -4,11 +4,23 @@ import { CartsService } from './carts.service';
 
 describe('CartsController', () => {
   let controller: CartsController;
+  const cartsServiceMock = {
+    addItem: jest.fn(),
+    findByUser: jest.fn(),
+    updateItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CartsController],
-      providers: [CartsService],
+      providers: [
+        {
+          provide: CartsService,
+          useValue: cartsServiceMock,
+        },
+      ],
     }).compile();
 
     controller = module.get<CartsController>(CartsController);

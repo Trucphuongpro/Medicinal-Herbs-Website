@@ -1,4 +1,13 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCartDto } from './create-cart.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, Min } from 'class-validator';
 
-export class UpdateCartDto extends PartialType(CreateCartDto) {}
+export class UpdateCartDto {
+  @ApiProperty({
+    example: 3,
+    minimum: 1,
+    description: 'So luong moi cua san pham trong gio hang',
+  })
+  @IsInt()
+  @Min(1)
+  quantity: number;
+}
