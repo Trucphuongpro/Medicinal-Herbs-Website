@@ -3,11 +3,12 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
+import { UserRole } from '../../users/enum/enum.userrole';
 
 export type CurrentUserPayload = {
   userId: string;
   email: string;
-  role: string;
+  role: UserRole;
 };
 
 export const CurrentUser = createParamDecorator(

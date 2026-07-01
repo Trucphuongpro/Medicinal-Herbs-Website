@@ -4,13 +4,23 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Order } from './entities/order.entity';
+import { Brackets, Repository } from 'typeorm';
+import { Order, OrderStatus } from './entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from '../carts/entities/cart.entity';
 import { CartItem } from 'src/carts/entities/cart-item.entity';
 import { CheckoutOrderDto } from './dto/checkout-order.dto';
 import { OrderItem } from './entities/order-item.entity';
+import { GetOrdersQueryDto } from './dto/get-orders-query.dto';
+
+type PaginatedOrders = {
+  data: Order[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+};
+
 @Injectable()
 export class OrdersService {
   constructor(
@@ -58,7 +68,7 @@ export class OrdersService {
       this.OrdersRepository.create({
         user_id: userId,
         total_price: totalPrice.toFixed(2),
-        status: 'pending',
+        status: OrderStatus.PENDING,
         payment_method: checkoutOrderDto.payment_method,
         shipping_address: checkoutOrderDto.shipping_address,
         phone: checkoutOrderDto.phone,
@@ -88,8 +98,50 @@ export class OrdersService {
     //tìm tất cả đơn hàng theo userId
     const orders = await this.OrdersRepository.find({
       where: { user_id: userId },
+      order: { created_at: 'DESC' },
     });
     return orders;
+  }
+
+  async getAllOrders(query: GetOrdersQueryDto): Promise<PaginatedOrders> {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 10;
+    const skip = (page - 1) * limit;
+
+    const queryBuilder = this.OrdersRepository.createQueryBuilder('order');
+
+    if (query.status) {
+      queryBuilder.andWhere('order.status = :status', {
+        status: query.status,
+      });
+    }
+
+    if (query.keyword?.trim()) {
+      const keyword = `%${query.keyword.trim()}%`;
+      queryBuilder.andWhere(
+        new Brackets((builder) => {
+          builder
+            .where('order.id::text ILIKE :keyword', { keyword })
+            .orWhere('order.user_id::text ILIKE :keyword', { keyword })
+            .orWhere('order.phone ILIKE :keyword', { keyword })
+            .orWhere('order.shipping_address ILIKE :keyword', { keyword });
+        }),
+      );
+    }
+
+    const [data, total] = await queryBuilder
+      .orderBy('order.created_at', 'DESC')
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   //Chi tiết đơn hàng
@@ -97,6 +149,7 @@ export class OrdersService {
     //Tìm order
     const order = await this.OrdersRepository.findOne({
       where: { id: orderId },
+      relations: { items: true },
     });
     if (!order) {
       throw new NotFoundException('Not found Orders');
@@ -108,5 +161,82 @@ export class OrdersService {
       );
     }
     return order;
+  }
+
+  async getOrderDetailAdmin(orderId: string): Promise<Order> {
+    const order = await this.OrdersRepository.findOne({
+      where: { id: orderId },
+      relations: { items: true },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Not found Orders');
+    }
+
+    return order;
+  }
+
+  async cancelOrder(userId: string, orderId: string): Promise<Order> {
+    const order = await this.OrdersRepository.findOne({
+      where: { id: orderId },
+      relations: { items: true },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Not found Orders');
+    }
+
+    if (order.user_id !== userId) {
+      throw new ForbiddenException(
+        'You are are not allowed to cancel this order',
+      );
+    }
+
+    if (order.status !== OrderStatus.PENDING) {
+      throw new BadRequestException('Only pending orders can be cancelled');
+    }
+
+    order.status = OrderStatus.CANCELED;
+    return this.OrdersRepository.save(order);
+  }
+
+  async updateOrderStatus(
+    orderId: string,
+    status: OrderStatus,
+  ): Promise<Order> {
+    const order = await this.OrdersRepository.findOne({
+      where: { id: orderId },
+      relations: { items: true },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Not found Orders');
+    }
+
+    const allowedTransitions: Record<OrderStatus, OrderStatus[]> = {
+      [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELED],
+      [OrderStatus.CONFIRMED]: [OrderStatus.SHIPPING, OrderStatus.CANCELED],
+      [OrderStatus.SHIPPING]: [OrderStatus.DELIVERED],
+      [OrderStatus.DELIVERED]: [],
+      [OrderStatus.COMPLETED]: [],
+      [OrderStatus.CANCELED]: [],
+      [OrderStatus.PAID]: [OrderStatus.CONFIRMED, OrderStatus.SHIPPING],
+    };
+
+    if (order.status === status) {
+      throw new BadRequestException('Order already has this status');
+    }
+
+    const currentStatus = order.status;
+    const nextStatuses = allowedTransitions[currentStatus] ?? [];
+
+    if (!nextStatuses.includes(status)) {
+      throw new BadRequestException(
+        `Invalid order status transition from ${currentStatus} to ${status}`,
+      );
+    }
+
+    order.status = status;
+    return this.OrdersRepository.save(order);
   }
 }

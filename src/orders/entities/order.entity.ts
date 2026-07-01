@@ -12,8 +12,10 @@ import { OrderItem } from './order-item.entity';
 
 export enum OrderStatus {
   PENDING = 'pending',
+  CONFIRMED = 'confirmed',
   PAID = 'paid',
   SHIPPING = 'shipping',
+  DELIVERED = 'delivered',
   COMPLETED = 'completed',
   CANCELED = 'canceled',
 }
@@ -41,10 +43,10 @@ export class Order {
   total_price!: string;
 
   @Column({ type: 'varchar', length: 30, default: OrderStatus.PENDING })
-  status!: OrderStatus | string;
+  status!: OrderStatus;
 
   @Column({ type: 'varchar', length: 50 })
-  payment_method!: PaymentMethod | string;
+  payment_method!: PaymentMethod;
 
   @Column({ type: 'text' })
   shipping_address!: string;
