@@ -1,42 +1,50 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { CheckoutOrderDto } from './dto/checkout-order.dto';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
+import type { CurrentUserPayload } from '../auth/decorator/current-user.decorator';
+import { Body, Param } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
+import { Order } from './entities/order.entity';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
+  @ApiOperation({ summary: 'Checkout giỏ hàng của người dùng' })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  chekoutOrder(
+    @CurrentUser() user: CurrentUserPayload,
+    @Body() checkoutOrderDto: CheckoutOrderDto,
+  ) {
+    return this.ordersService.checkoutOrder(user.userId, checkoutOrderDto);
   }
 
+  @ApiOperation({ summary: 'Lấy tất cả đơn hàng của người dùng theo UserId' })
+  @ApiUnauthorizedResponse({
+    description: 'Chua dang nhap hoac token khong hop le',
+  })
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  getOrderByUserId(@CurrentUser() user: CurrentUserPayload) {
+    return this.ordersService.getOrderByUserId(user.userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  @ApiOperation({ summary: 'Lấy chi tiết đơn hàng' })
+  @Get()
+  getOrderDetail(
+    @CurrentUser() user: CurrentUserPayload,
+    @Param('orderId') orderId: string,
+  ): Promise<Order> {
+    return this.ordersService.getOrderDetail(user.userId, orderId);
   }
 }

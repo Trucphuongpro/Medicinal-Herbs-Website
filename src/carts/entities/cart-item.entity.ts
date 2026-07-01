@@ -13,27 +13,27 @@ import { Product } from '../../products/entities/product.entity';
 @Unique('uq_cart_items_cart_product', ['cart_id', 'product_id'])
 export class CartItem {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column({ type: 'uuid' })
-  cart_id: string;
+  cart_id!: string;
 
   @Index()
   @Column({ type: 'uuid' })
-  product_id: string;
+  product_id!: string;
 
   @ManyToOne(() => Cart, (cart) => cart.items, { onDelete: 'CASCADE' })
-  cart: Cart;
+  cart!: Cart;
 
   @ManyToOne(() => Product, (product) => product.cart_items, {
     onDelete: 'RESTRICT',
   })
-  product: Product;
+  product!: Product;
 
   @Column({ type: 'int' })
-  quantity: number;
+  quantity!: number;
 
   @Column({ type: 'numeric', precision: 12, scale: 2 })
-  price: string;
+  price!: string;
 }

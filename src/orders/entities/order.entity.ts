@@ -28,30 +28,33 @@ export enum PaymentMethod {
 @Entity({ name: 'orders' })
 export class Order {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column({ type: 'uuid' })
-  user_id: string;
+  user_id!: string;
 
   @ManyToOne(() => User, (user) => user.orders, { onDelete: 'RESTRICT' })
-  user: User;
+  user!: User;
 
   @Column({ type: 'numeric', precision: 12, scale: 2 })
-  total_price: string;
+  total_price!: string;
 
   @Column({ type: 'varchar', length: 30, default: OrderStatus.PENDING })
-  status: OrderStatus | string;
+  status!: OrderStatus | string;
 
   @Column({ type: 'varchar', length: 50 })
-  payment_method: PaymentMethod | string;
+  payment_method!: PaymentMethod | string;
 
   @Column({ type: 'text' })
-  shipping_address: string;
+  shipping_address!: string;
+
+  @Column()
+  phone!: string;
 
   @CreateDateColumn({ type: 'timestamptz' })
-  created_at: Date;
+  created_at!: Date;
 
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
-  items: OrderItem[];
+  items!: OrderItem[];
 }

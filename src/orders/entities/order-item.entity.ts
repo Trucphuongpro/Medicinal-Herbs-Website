@@ -1,4 +1,11 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { Order } from './order.entity';
 import { Product } from '../../products/entities/product.entity';
 
@@ -6,26 +13,27 @@ import { Product } from '../../products/entities/product.entity';
 @Unique('uq_order_items_order_product', ['order_id', 'product_id'])
 export class OrderItem {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index()
   @Column({ type: 'uuid' })
-  order_id: string;
+  order_id!: string;
 
   @Index()
   @Column({ type: 'uuid' })
-  product_id: string;
+  product_id!: string;
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
-  order: Order;
+  order!: Order;
 
-  @ManyToOne(() => Product, (product) => product.order_items, { onDelete: 'RESTRICT' })
-  product: Product;
+  @ManyToOne(() => Product, (product) => product.order_items, {
+    onDelete: 'RESTRICT',
+  })
+  product!: Product;
 
   @Column({ type: 'int' })
-  quantity: number;
+  quantity!: number;
 
   @Column({ type: 'numeric', precision: 12, scale: 2 })
-  price: string;
+  price!: string;
 }
-
