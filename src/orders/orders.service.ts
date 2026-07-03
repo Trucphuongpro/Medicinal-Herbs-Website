@@ -8,7 +8,7 @@ import { Brackets, Repository } from 'typeorm';
 import { Order, OrderStatus } from './entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from '../carts/entities/cart.entity';
-import { CartItem } from 'src/carts/entities/cart-item.entity';
+import { CartItem } from '../carts/entities/cart-item.entity';
 import { CheckoutOrderDto } from './dto/checkout-order.dto';
 import { OrderItem } from './entities/order-item.entity';
 import { GetOrdersQueryDto } from './dto/get-orders-query.dto';
