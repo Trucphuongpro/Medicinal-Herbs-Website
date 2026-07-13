@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  background-color: var(--color-bg-muted);
+}
+
+.content {
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  padding: var(--spacing-xl);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
