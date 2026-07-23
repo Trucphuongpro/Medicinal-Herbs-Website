@@ -1,0 +1,32 @@
+.section {
+  padding: 1.5rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 1.5rem;
+  background: #ffffff;
+}
+
+.title {
+  margin-bottom: 0.9rem;
+  color: var(--color-primary-dark);
+  font-size: 1.35rem;
+}
+
+.text {
+  color: #475569;
+  line-height: 1.8;
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+  padding-left: 1.1rem;
+  color: #475569;
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 1.2rem;
+    border-radius: 1.25rem;
+  }
+}

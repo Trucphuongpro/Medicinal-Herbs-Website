@@ -1,0 +1,9 @@
+export { default as ProductDetailBreadcrumb } from './ProductDetailBreadcrumb';
+export { default as ProductGallery } from './ProductGallery';
+export { default as ProductInformation } from './ProductInformation';
+export { default as QuantitySelector } from './QuantitySelector';
+export { default as ProductDescription } from './ProductDescription';
+export { default as ProductIngredients } from './ProductIngredients';
+export { default as ProductUsage } from './ProductUsage';
+export { default as ProductReviews } from './ProductReviews';
+export { default as RelatedProducts } from './RelatedProducts';
