@@ -1,0 +1,59 @@
+.section {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdf9 100%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.6rem;
+  border-radius: 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  box-shadow: 0 14px 28px rgba(20, 62, 46, 0.06);
+}
+
+.quoteMark {
+  color: rgba(45, 106, 79, 0.24);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.quote {
+  color: #475569;
+  line-height: 1.8;
+}
+
+.author {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+}
+
+.author strong {
+  color: var(--color-primary-dark);
+}
+
+.author span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 0;
+  }
+}

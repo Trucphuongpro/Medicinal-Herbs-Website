@@ -1,0 +1,94 @@
+.section {
+  padding: 0 0 5rem;
+}
+
+.banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(183, 228, 199, 0.45), transparent 28%),
+    linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #40916c 100%);
+  color: #ffffff;
+}
+
+.content {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+  line-height: 1.15;
+}
+
+.description {
+  max-width: 40rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+}
+
+.side {
+  display: grid;
+  gap: 1rem;
+  align-content: center;
+}
+
+.offerBox {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.offerBox strong {
+  font-size: 1.6rem;
+}
+
+.offerBox span {
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-size-sm);
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  width: fit-content;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  color: var(--color-primary-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 768px) {
+  .banner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 4rem;
+  }
+
+  .banner {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+}
