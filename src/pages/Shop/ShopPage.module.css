@@ -1,0 +1,79 @@
+.page {
+  padding-top: 2rem;
+}
+
+.hero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(circle at top right, rgba(183, 228, 199, 0.42), transparent 28%),
+    linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+}
+
+.description {
+  max-width: 46rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.heroBadge {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 12rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1.25rem;
+  background: var(--color-primary-dark);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.heroBadge strong {
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.heroBadge span {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.content {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: 1rem;
+  }
+
+  .hero {
+    padding: 1.25rem;
+    border-radius: 1.25rem;
+  }
+}
