@@ -1,0 +1,101 @@
+.card {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 1.5rem;
+  background: #ffffff;
+}
+
+.header {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.category {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(216, 243, 220, 0.75);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.title {
+  color: var(--color-primary-dark);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.ratingRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.stock {
+  color: var(--color-success);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  align-items: end;
+}
+
+.price {
+  color: var(--color-primary-dark);
+  font-size: 2rem;
+}
+
+.meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.description {
+  color: #475569;
+  line-height: 1.8;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: #f8fafc;
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-sm);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.actionButton {
+  min-height: 3rem;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.2rem;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,99 @@
+.section {
+  padding: 1.5rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+}
+
+.summary {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.title {
+  color: var(--color-primary-dark);
+  font-size: 1.35rem;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.averageCard {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 12rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: #ffffff;
+  text-align: center;
+}
+
+.averageCard strong {
+  color: var(--color-primary-dark);
+  font-size: 1.8rem;
+}
+
+.averageCard span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  border-radius: 1.25rem;
+  background: #ffffff;
+}
+
+.cardHeader {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader strong {
+  display: block;
+  color: var(--color-primary-dark);
+}
+
+.cardHeader span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.card p {
+  color: #475569;
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 1.2rem;
+    border-radius: 1.25rem;
+  }
+
+  .summary,
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .averageCard {
+    min-width: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,78 @@
+.page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(216, 243, 220, 0.75);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.title {
+  color: var(--color-primary-dark);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.15;
+}
+
+.description {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+}
+
+.checkbox input {
+  margin-top: 0.2rem;
+  accent-color: var(--color-primary);
+}
+
+.submitButton {
+  min-height: 3rem;
+}
+
+.footerText {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.inlineLink {
+  color: var(--color-primary-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
