@@ -1,0 +1,27 @@
+.card {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  border-radius: 1.5rem;
+  background: #ffffff;
+}
+
+.helper,
+.note {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.helper strong {
+  color: var(--color-primary-dark);
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1rem;
+    border-radius: 1.25rem;
+  }
+}
