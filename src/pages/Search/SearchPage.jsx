@@ -1,18 +1,64 @@
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { SearchFilter, SearchHeader, SearchProductGrid, SearchPagination } from './components';
+import { defaultFilter, filterOptions, mockSearchProducts } from './searchData';
+import styles from './SearchPage.module.css';
+
+const PRODUCTS_PER_PAGE = 6;
 
 function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
+  const [selectedFilter, setSelectedFilter] = useState(defaultFilter);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredProducts = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    const byQuery = !normalizedQuery
+      ? mockSearchProducts
+      : mockSearchProducts.filter((product) =>
+          [product.name, product.category, product.tags.join(' ')].some((value) =>
+            value.toLowerCase().includes(normalizedQuery),
+          ),
+        );
+
+    if (selectedFilter === 'all') return byQuery;
+    return byQuery.filter((product) => product.filterKey === selectedFilter);
+  }, [query, selectedFilter]);
+
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+
+  const visibleProducts = useMemo(() => {
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    return filteredProducts.slice(start, start + PRODUCTS_PER_PAGE);
+  }, [currentPage, filteredProducts]);
+
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
 
   return (
-    <section className="page-section">
+    <section className={`page-section ${styles.page}`}>
       <div className="container">
-        <h1 className="page-title">Tìm kiếm</h1>
-        {query ? (
-          <p>Kết quả tìm kiếm cho: &quot;{query}&quot;</p>
-        ) : (
-          <p>Nhập từ khóa để tìm kiếm sản phẩm.</p>
-        )}
+        <SearchHeader query={query} resultCount={filteredProducts.length} />
+        <SearchFilter
+          options={filterOptions}
+          selectedFilter={selectedFilter}
+          onChange={handleFilterChange}
+        />
+        <SearchProductGrid products={visibleProducts} query={query} />
+        <SearchPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </section>
   );
