@@ -1,26 +1,28 @@
-import { NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { profileTabs } from '../../../pages/Profile/profileData';
 import styles from './ProfileSidebar.module.css';
 
-const menuItems = [
-  { to: '/profile', label: 'Thông tin cá nhân', end: true },
-  { to: '/orders', label: 'Đơn hàng của tôi' },
-];
-
 function ProfileSidebar() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const currentTab = searchParams.get('tab') || 'profile';
+
   return (
     <aside className={styles.sidebar}>
+      <div className={styles.profileCard}>
+        <strong>Tài khoản</strong>
+        <span>Quản lý hồ sơ, địa chỉ và đơn hàng của bạn.</span>
+      </div>
+
       <nav className={styles.nav} aria-label="Menu tài khoản">
-        {menuItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`
-            }
+        {profileTabs.map((item) => (
+          <Link
+            key={item.key}
+            to={`/profile?tab=${item.key}`}
+            className={`${styles.navLink} ${currentTab === item.key ? styles.navLinkActive : ''}`}
           >
-            {item.label}
-          </NavLink>
+            <span>{item.label}</span>
+          </Link>
         ))}
       </nav>
     </aside>

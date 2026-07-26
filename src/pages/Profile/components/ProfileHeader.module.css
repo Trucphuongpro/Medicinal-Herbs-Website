@@ -1,0 +1,71 @@
+.header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(circle at top right, rgba(183, 228, 199, 0.42), transparent 28%),
+    linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+}
+
+.identity {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--color-primary-dark);
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.description {
+  max-width: 42rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.badge {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 12rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.badge strong {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+}
+
+.badge span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .header,
+  .identity {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 1.2rem;
+    border-radius: 1.25rem;
+  }
+}
