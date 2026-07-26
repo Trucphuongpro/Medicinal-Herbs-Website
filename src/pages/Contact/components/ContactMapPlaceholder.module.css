@@ -1,0 +1,84 @@
+.section {
+  padding: 0 0 5rem;
+}
+
+.mapCard {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+}
+
+.header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.header h2 {
+  color: var(--color-primary-dark);
+  font-size: 1.35rem;
+}
+
+.header p {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.mapBox {
+  display: grid;
+  place-items: center;
+  gap: 0.55rem;
+  min-height: 22rem;
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(135deg, rgba(216, 243, 220, 0.68), rgba(255, 255, 255, 0.9)),
+    repeating-linear-gradient(
+      45deg,
+      rgba(45, 106, 79, 0.05) 0,
+      rgba(45, 106, 79, 0.05) 16px,
+      transparent 16px,
+      transparent 32px
+    );
+  text-align: center;
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-primary-dark);
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.mapBox strong {
+  color: var(--color-primary-dark);
+  font-size: 1.2rem;
+}
+
+.mapBox span {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 4rem;
+  }
+
+  .mapCard {
+    padding: 1rem;
+    border-radius: 1.25rem;
+  }
+
+  .mapBox {
+    min-height: 18rem;
+    border-radius: 1.25rem;
+  }
+}

@@ -1,0 +1,45 @@
+.section {
+  padding: 0 0 5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.35rem;
+  border-radius: 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+}
+
+.card h3 {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+}
+
+.card p {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

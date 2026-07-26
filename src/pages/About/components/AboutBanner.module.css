@@ -1,0 +1,81 @@
+.banner {
+  padding: 4rem 0 3rem;
+  background:
+    radial-gradient(circle at top left, rgba(216, 243, 220, 0.95), transparent 42%),
+    linear-gradient(180deg, #f8fff8 0%, #ffffff 75%);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.title {
+  color: var(--color-primary-dark);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 12ch;
+}
+
+.description {
+  max-width: 38rem;
+  color: #4b5563;
+  line-height: 1.8;
+}
+
+.visualCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.6rem;
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.26), transparent 32%),
+    linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%);
+  color: #ffffff;
+  min-height: 17rem;
+  align-content: end;
+}
+
+.visualCard strong {
+  font-size: 1.6rem;
+}
+
+.visualCard p {
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .banner {
+    padding: 3rem 0 2.5rem;
+  }
+}

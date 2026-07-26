@@ -1,0 +1,82 @@
+.section {
+  padding: 4rem 0 3rem;
+  background:
+    radial-gradient(circle at top left, rgba(216, 243, 220, 0.9), transparent 40%),
+    linear-gradient(180deg, #f8fff8 0%, #ffffff 78%);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.intro {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.noteCard {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 35%),
+    linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%);
+  color: #ffffff;
+}
+
+.noteCard p {
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.75;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  border-radius: 1.75rem;
+  background: #ffffff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.submitButton {
+  min-height: 3rem;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 0 2.5rem;
+  }
+
+  .form {
+    padding: 1.1rem;
+    border-radius: 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+}

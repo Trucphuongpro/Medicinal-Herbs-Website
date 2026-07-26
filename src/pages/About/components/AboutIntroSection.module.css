@@ -1,0 +1,45 @@
+.section {
+  padding: 0 0 5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.9fr);
+  gap: 1.5rem;
+}
+
+.stats {
+  display: grid;
+  gap: 1rem;
+}
+
+.statCard {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+}
+
+.statCard strong {
+  color: var(--color-primary-dark);
+  font-size: 1.8rem;
+}
+
+.statCard p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 4rem;
+  }
+}
