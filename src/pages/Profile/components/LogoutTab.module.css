@@ -1,0 +1,20 @@
+.card {
+  max-width: 44rem;
+}
+
+.confirmBox {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: #f8fafc;
+}
+
+.confirmBox strong {
+  color: var(--color-primary-dark);
+}
+
+.confirmBox p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}

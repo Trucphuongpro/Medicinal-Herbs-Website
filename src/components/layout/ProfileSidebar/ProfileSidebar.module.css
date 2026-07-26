@@ -6,6 +6,25 @@
   background-color: var(--color-bg-muted);
 }
 
+.profileCard {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  background: #ffffff;
+}
+
+.profileCard strong {
+  color: var(--color-primary-dark);
+}
+
+.profileCard span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+}
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -35,8 +54,16 @@
     border-bottom: 1px solid var(--color-border);
   }
 
+  .profileCard {
+    margin-bottom: 0.75rem;
+  }
+
   .nav {
     flex-direction: row;
     overflow-x: auto;
+  }
+
+  .navLink {
+    white-space: nowrap;
   }
 }
