@@ -3,7 +3,7 @@ import Input from '../../../components/common/Input';
 import styles from './ProfileTab.module.css';
 import shared from './ProfileSection.module.css';
 
-function ProfileTab({ summary, formValues, onChange }) {
+function ProfileTab({ summary, formValues, onChange, onSubmit, message }) {
   return (
     <div className={styles.layout}>
       <section className={shared.card}>
@@ -22,9 +22,10 @@ function ProfileTab({ summary, formValues, onChange }) {
         </div>
 
         <div className={shared.actionRow}>
-          <Button>Lưu thay đổi</Button>
+          <Button onClick={onSubmit}>Lưu thay đổi</Button>
           <Button variant="outline">Hủy chỉnh sửa</Button>
         </div>
+        {message ? <p>{message}</p> : null}
       </section>
 
       <section className={shared.card}>

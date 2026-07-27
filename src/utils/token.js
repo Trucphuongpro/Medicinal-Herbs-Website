@@ -10,6 +10,20 @@ export const getRefreshToken = () => getItem(STORAGE_KEYS.REFRESH_TOKEN);
 
 export const setRefreshToken = (token) => setItem(STORAGE_KEYS.REFRESH_TOKEN, token);
 
+export const getStoredUser = () => {
+  const rawUser = getItem(STORAGE_KEYS.USER);
+
+  if (!rawUser) return null;
+
+  try {
+    return JSON.parse(rawUser);
+  } catch {
+    return null;
+  }
+};
+
+export const setStoredUser = (user) => setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+
 export const clearTokens = () => {
   removeItem(STORAGE_KEYS.ACCESS_TOKEN);
   removeItem(STORAGE_KEYS.REFRESH_TOKEN);

@@ -8,7 +8,7 @@ function SearchProductGrid({ products, query }) {
         <h2>Không tìm thấy kết quả phù hợp</h2>
         <p>
           {query
-            ? `Chưa có sản phẩm mock phù hợp với từ khóa "${query}". Hãy thử một từ khóa khác.`
+            ? `Chưa có sản phẩm phù hợp với từ khóa "${query}". Hãy thử một từ khóa khác.`
             : 'Hãy nhập từ khóa để xem danh sách sản phẩm phù hợp.'}
         </p>
       </div>

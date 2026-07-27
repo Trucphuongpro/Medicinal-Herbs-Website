@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import EmptyState from '../../components/common/EmptyState';
+import ErrorState from '../../components/common/ErrorState';
+import Loading from '../../components/common/Loading';
+import cartService from '../../services/cart.service';
+import productService from '../../services/product.service';
+import reviewService from '../../services/review.service';
+import { mapProductDetail, mapProductToCard } from '../../utils/apiMappers';
 import {
   ProductDetailBreadcrumb,
   ProductDescription,
@@ -11,36 +18,122 @@ import {
   QuantitySelector,
   RelatedProducts,
 } from './components';
-import { productDetailMock, relatedProducts } from './productDetailData';
 import styles from './ProductDetailPage.module.css';
 
 function ProductDetailPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const product = useMemo(
-    () => productDetailMock.find((item) => item.id === id) || productDetailMock[0],
-    [id],
-  );
-  const [selectedImage, setSelectedImage] = useState(product.gallery[0]);
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [cartError, setCartError] = useState('');
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    setSelectedImage(product.gallery[0]);
-    setQuantity(1);
-  }, [product]);
+    const loadProductDetail = async () => {
+      try {
+        setLoading(true);
+        setError('');
+
+        const [productResponse, reviewsResponse, allProductsResponse] = await Promise.all([
+          productService.getById(id),
+          reviewService.getByProduct(id),
+          productService.getAll(),
+        ]);
+
+        const mappedProduct = mapProductDetail(productResponse, reviewsResponse);
+        const mappedRelatedProducts = allProductsResponse
+          .filter((item) => item.id !== id && item.category_id === productResponse.category_id)
+          .slice(0, 4)
+          .map((item) => mapProductToCard(item));
+
+        setProduct(mappedProduct);
+        setRelatedProducts(mappedRelatedProducts);
+        setSelectedImage(mappedProduct.gallery[0] || null);
+        setQuantity(1);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Không thể tải chi tiết sản phẩm.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProductDetail();
+  }, [id]);
 
   const handleDecrease = () => {
     setQuantity((current) => Math.max(1, current - 1));
   };
 
   const handleIncrease = () => {
-    setQuantity((current) => Math.min(product.stockCount, current + 1));
+    setQuantity((current) => Math.min(product?.stockCount || 1, current + 1));
   };
 
   const handleQuantityChange = (value) => {
     if (Number.isNaN(value)) return;
-    const nextValue = Math.min(product.stockCount, Math.max(1, value));
+    const nextValue = Math.min(product?.stockCount || 1, Math.max(1, value));
     setQuantity(nextValue);
   };
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+
+    try {
+      setIsAddingToCart(true);
+      setCartError('');
+      await cartService.addItem({
+        productId: product.id,
+        quantity,
+      });
+      return true;
+    } catch (err) {
+      setCartError(err.response?.data?.message || 'Không thể thêm sản phẩm vào giỏ hàng.');
+      return false;
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
+
+  const handleBuyNow = async () => {
+    const added = await handleAddToCart();
+    if (added) {
+      navigate('/checkout');
+    }
+  };
+
+  if (loading) {
+    return <Loading fullScreen text="Đang tải chi tiết sản phẩm..." />;
+  }
+
+  if (error) {
+    return (
+      <section className={`page-section ${styles.page}`}>
+        <div className="container">
+          <ErrorState message={error} />
+        </div>
+      </section>
+    );
+  }
+
+  if (!product) {
+    return (
+      <section className={`page-section ${styles.page}`}>
+        <div className="container">
+          <EmptyState
+            title="Không tìm thấy sản phẩm"
+            description="Sản phẩm bạn đang tìm không còn tồn tại hoặc chưa được backend trả về."
+          />
+        </div>
+      </section>
+    );
+  }
+
+  if (!selectedImage) {
+    return <Loading fullScreen text="Đang chuẩn bị hình ảnh sản phẩm..." />;
+  }
 
   return (
     <section className={`page-section ${styles.page}`}>
@@ -55,7 +148,13 @@ function ProductDetailPage() {
           />
 
           <div className={styles.infoColumn}>
-            <ProductInformation product={product} />
+            <ProductInformation
+              product={product}
+              onAddToCart={handleAddToCart}
+              onBuyNow={handleBuyNow}
+              isAddingToCart={isAddingToCart}
+              cartError={cartError}
+            />
             <QuantitySelector
               quantity={quantity}
               stockCount={product.stockCount}

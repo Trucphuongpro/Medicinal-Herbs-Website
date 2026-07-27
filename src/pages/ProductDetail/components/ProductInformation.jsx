@@ -3,7 +3,13 @@ import Rating from '../../../components/common/Rating';
 import { formatCurrency } from '../../../utils/format';
 import styles from './ProductInformation.module.css';
 
-function ProductInformation({ product }) {
+function ProductInformation({
+  product,
+  onAddToCart,
+  onBuyNow,
+  isAddingToCart,
+  cartError,
+}) {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -31,11 +37,14 @@ function ProductInformation({ product }) {
       </div>
 
       <div className={styles.actions}>
-        <Button className={styles.actionButton}>Thêm vào giỏ hàng</Button>
-        <Button variant="outline" className={styles.actionButton}>
+        <Button className={styles.actionButton} onClick={onAddToCart} disabled={isAddingToCart}>
+          {isAddingToCart ? 'Đang thêm...' : 'Thêm vào giỏ hàng'}
+        </Button>
+        <Button variant="outline" className={styles.actionButton} onClick={onBuyNow} disabled={isAddingToCart}>
           Mua ngay
         </Button>
       </div>
+      {cartError ? <p className={styles.meta}>{cartError}</p> : null}
     </div>
   );
 }

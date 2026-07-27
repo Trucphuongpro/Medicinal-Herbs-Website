@@ -1,9 +1,49 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
+import authService from '../../services/auth.service';
+import { setAccessToken, setStoredUser } from '../../utils/token';
 import styles from './LoginPage.module.css';
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (field) => (event) => {
+    setFormValues((current) => ({
+      ...current,
+      [field]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      setLoading(true);
+      setError('');
+
+      const loginResponse = await authService.login(formValues);
+      setAccessToken(loginResponse.accessToken);
+
+      const currentUser = await authService.getMe();
+      setStoredUser(currentUser);
+
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Đăng nhập thất bại.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -14,20 +54,24 @@ function LoginPage() {
         </p>
       </div>
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <Input
           label="Email"
           name="email"
           type="email"
           placeholder="you@example.com"
-          hint="Giao diện demo, chưa kết nối API."
+          value={formValues.email}
+          onChange={handleChange('email')}
         />
         <Input
           label="Mật khẩu"
           name="password"
           type="password"
           placeholder="Nhập mật khẩu"
+          value={formValues.password}
+          onChange={handleChange('password')}
         />
+        {error ? <p className={styles.description}>{error}</p> : null}
 
         <div className={styles.utilityRow}>
           <label className={styles.checkbox}>
@@ -40,8 +84,8 @@ function LoginPage() {
           </Link>
         </div>
 
-        <Button fullWidth className={styles.submitButton}>
-          Đăng nhập
+        <Button fullWidth className={styles.submitButton} type="submit" disabled={loading}>
+          {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </Button>
       </form>
 

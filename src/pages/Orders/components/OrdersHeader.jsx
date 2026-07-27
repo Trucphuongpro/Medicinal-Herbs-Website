@@ -12,7 +12,7 @@ function OrdersHeader({ totalOrders }) {
 
       <div className={styles.badge}>
         <strong>{totalOrders}</strong>
-        <span>Đơn hàng mock đang hiển thị</span>
+        <span>Đơn hàng hiện có</span>
       </div>
     </div>
   );

@@ -1,24 +1,24 @@
 import axiosClient from './axiosClient';
 
 const cartService = {
-  getCart() {
+  async getCart() {
     return axiosClient.get('/cart');
   },
 
-  addItem(data) {
-    return axiosClient.post('/cart/items', data);
+  async addItem(data) {
+    return axiosClient.post('/cart/add', data);
   },
 
-  updateItem(itemId, data) {
-    return axiosClient.patch(`/cart/items/${itemId}`, data);
+  async updateItem(itemId, data) {
+    return axiosClient.patch(`/cart/item/${itemId}`, data);
   },
 
-  removeItem(itemId) {
-    return axiosClient.delete(`/cart/items/${itemId}`);
+  async removeItem(itemId) {
+    return axiosClient.delete(`/cart/item/${itemId}`);
   },
 
-  clearCart() {
-    return axiosClient.delete('/cart');
+  async clearCart() {
+    return axiosClient.delete('/cart/clear');
   },
 };
 

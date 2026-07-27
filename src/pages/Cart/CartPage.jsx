@@ -1,4 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ErrorState from '../../components/common/ErrorState';
+import Loading from '../../components/common/Loading';
+import cartService from '../../services/cart.service';
+import { mapCartItem } from '../../utils/apiMappers';
 import {
   CartHeader,
   CartProductList,
@@ -6,13 +11,34 @@ import {
   OrderSummary,
   VoucherBox,
 } from './components';
-import { cartItems as initialCartItems, voucherOptions } from './cartData';
+import { voucherOptions } from './cartData';
 import styles from './CartPage.module.css';
 
 function CartPage() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [updatingId, setUpdatingId] = useState('');
   const [voucherCode, setVoucherCode] = useState('');
   const [appliedVoucher, setAppliedVoucher] = useState(null);
+
+  const loadCart = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const response = await cartService.getCart();
+      setCartItems((response.items || []).map(mapCartItem));
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể tải giỏ hàng.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, []);
 
   const subtotal = useMemo(
     () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0),
@@ -32,21 +58,33 @@ function CartPage() {
   const shippingFee = cartItems.length ? 30000 : 0;
   const total = Math.max(0, subtotal - discount + shippingFee);
 
-  const handleQuantityChange = (id, nextQuantity) => {
-    setCartItems((currentItems) =>
-      currentItems.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: Math.max(1, Math.min(item.maxQuantity, nextQuantity)),
-            }
-          : item,
-      ),
-    );
+  const handleQuantityChange = async (id, nextQuantity) => {
+    const item = cartItems.find((cartItem) => cartItem.id === id);
+    if (!item) return;
+
+    const quantity = Math.max(1, Math.min(item.maxQuantity, nextQuantity));
+
+    try {
+      setUpdatingId(id);
+      const response = await cartService.updateItem(id, { quantity });
+      setCartItems((response.items || []).map(mapCartItem));
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể cập nhật số lượng.');
+    } finally {
+      setUpdatingId('');
+    }
   };
 
-  const handleRemove = (id) => {
-    setCartItems((currentItems) => currentItems.filter((item) => item.id !== id));
+  const handleRemove = async (id) => {
+    try {
+      setUpdatingId(id);
+      const response = await cartService.removeItem(id);
+      setCartItems((response.items || []).map(mapCartItem));
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể xóa sản phẩm khỏi giỏ hàng.');
+    } finally {
+      setUpdatingId('');
+    }
   };
 
   const handleApplyVoucher = () => {
@@ -55,6 +93,20 @@ function CartPage() {
 
     setAppliedVoucher(matchedVoucher);
   };
+
+  if (loading) {
+    return <Loading fullScreen text="Đang tải giỏ hàng..." />;
+  }
+
+  if (error && !cartItems.length) {
+    return (
+      <section className={`page-section ${styles.page}`}>
+        <div className="container">
+          <ErrorState message={error} onRetry={loadCart} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={`page-section ${styles.page}`}>
@@ -67,6 +119,7 @@ function CartPage() {
               items={cartItems}
               onQuantityChange={handleQuantityChange}
               onRemove={handleRemove}
+              updatingId={updatingId}
             />
           </div>
 
@@ -83,7 +136,7 @@ function CartPage() {
               discount={discount}
               total={total}
             />
-            <CheckoutSection disabled={!cartItems.length} />
+            <CheckoutSection disabled={!cartItems.length} onCheckout={() => navigate('/checkout')} />
           </aside>
         </div>
       </div>

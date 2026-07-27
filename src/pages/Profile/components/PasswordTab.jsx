@@ -2,7 +2,7 @@ import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input';
 import shared from './ProfileSection.module.css';
 
-function PasswordTab({ values, onChange }) {
+function PasswordTab({ values, onChange, onSubmit }) {
   return (
     <section className={shared.card}>
       <div className={shared.header}>
@@ -36,7 +36,7 @@ function PasswordTab({ values, onChange }) {
       </div>
 
       <div className={shared.actionRow}>
-        <Button>Cập nhật mật khẩu</Button>
+        <Button onClick={onSubmit}>Cập nhật mật khẩu</Button>
         <Button variant="outline">Hủy</Button>
       </div>
     </section>

@@ -1,5 +1,4 @@
 import {
-  categoryOptions,
   priceOptions,
   ratingOptions,
   statusOptions,
@@ -29,6 +28,7 @@ function FilterGroup({ title, name, options, selectedValue, onChange }) {
 }
 
 function ShopSidebarFilter({
+  categoryOptions,
   selectedCategory,
   selectedPrice,
   selectedRating,

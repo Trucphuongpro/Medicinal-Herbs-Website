@@ -42,7 +42,7 @@ function OrdersList({ orders, activeTab }) {
     return (
       <div className={styles.emptyState}>
         <h2>Chưa có đơn hàng ở mục này</h2>
-        <p>Tab hiện tại là {activeTab}. Hãy thử chuyển sang trạng thái khác để xem thêm đơn hàng mock.</p>
+        <p>Tab hiện tại là {activeTab}. Hãy thử chuyển sang trạng thái khác hoặc đặt đơn mới.</p>
       </div>
     );
   }
