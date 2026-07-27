@@ -103,6 +103,7 @@ export class OrdersService {
     return orders;
   }
 
+  // lấy tất cả đơn hàng của admin
   async getAllOrders(query: GetOrdersQueryDto): Promise<PaginatedOrders> {
     const page = query.page ?? 1;
     const limit = query.limit ?? 10;
@@ -163,6 +164,7 @@ export class OrdersService {
     return order;
   }
 
+  // lấy chi tiết đơn hàng của admin
   async getOrderDetailAdmin(orderId: string): Promise<Order> {
     const order = await this.OrdersRepository.findOne({
       where: { id: orderId },
@@ -176,6 +178,7 @@ export class OrdersService {
     return order;
   }
 
+  // hủy đơn hàng
   async cancelOrder(userId: string, orderId: string): Promise<Order> {
     const order = await this.OrdersRepository.findOne({
       where: { id: orderId },
@@ -200,6 +203,7 @@ export class OrdersService {
     return this.OrdersRepository.save(order);
   }
 
+  // cập nhật trạng thái đơn hàng
   async updateOrderStatus(
     orderId: string,
     status: OrderStatus,
