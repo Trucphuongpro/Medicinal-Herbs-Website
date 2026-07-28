@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import AuthLayout from '../layouts/AuthLayout';
 import ProfileLayout from '../layouts/ProfileLayout';
+import AdminPreviewLayout from '../layouts/AdminPreviewLayout';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -20,6 +21,21 @@ import SearchPage from '../pages/Search';
 import AboutPage from '../pages/About';
 import ContactPage from '../pages/Contact';
 import NotFoundPage from '../pages/NotFound';
+import {
+  CategoriesPage,
+  CouponsPage,
+  DashboardPage,
+  InventoryPage,
+  OrderDetailPage as AdminOrderDetailPage,
+  OrdersPage as AdminOrdersPage,
+  ProductCreatePage,
+  ProductEditPage,
+  ProductsPage,
+  ReportsPage,
+  ReviewsPage,
+  SettingsPage,
+  UsersPage,
+} from '../pages/Admin';
 
 const router = createBrowserRouter([
   {
@@ -69,6 +85,26 @@ const router = createBrowserRouter([
           { path: 'forgot-password', element: <ForgotPasswordPage /> },
         ],
       },
+    ],
+  },
+
+  {
+    path: 'admin',
+    element: <AdminPreviewLayout />,
+    children: [
+      { index: true, element: <DashboardPage /> },
+      { path: 'products', element: <ProductsPage /> },
+      { path: 'products/create', element: <ProductCreatePage /> },
+      { path: 'products/edit', element: <ProductEditPage /> },
+      { path: 'categories', element: <CategoriesPage /> },
+      { path: 'orders', element: <AdminOrdersPage /> },
+      { path: 'orders/detail', element: <AdminOrderDetailPage /> },
+      { path: 'users', element: <UsersPage /> },
+      { path: 'reviews', element: <ReviewsPage /> },
+      { path: 'coupons', element: <CouponsPage /> },
+      { path: 'inventory', element: <InventoryPage /> },
+      { path: 'reports', element: <ReportsPage /> },
+      { path: 'settings', element: <SettingsPage /> },
     ],
   },
 ]);
