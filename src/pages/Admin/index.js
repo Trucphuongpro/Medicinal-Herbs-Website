@@ -1,0 +1,13 @@
+export { default as DashboardPage } from './DashboardPage';
+export { default as ProductsPage } from './ProductsPage';
+export { default as ProductCreatePage } from './ProductCreatePage';
+export { default as ProductEditPage } from './ProductEditPage';
+export { default as CategoriesPage } from './CategoriesPage';
+export { default as OrdersPage } from './OrdersPage';
+export { default as OrderDetailPage } from './OrderDetailPage';
+export { default as UsersPage } from './UsersPage';
+export { default as ReviewsPage } from './ReviewsPage';
+export { default as CouponsPage } from './CouponsPage';
+export { default as InventoryPage } from './InventoryPage';
+export { default as ReportsPage } from './ReportsPage';
+export { default as SettingsPage } from './SettingsPage';

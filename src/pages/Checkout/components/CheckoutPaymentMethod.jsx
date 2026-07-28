@@ -5,7 +5,7 @@ function CheckoutPaymentMethod({ methods, selectedPayment, onSelectPayment }) {
     <section className={styles.section}>
       <div>
         <h2 className={styles.title}>Payment Method</h2>
-        <p className={styles.description}>Các lựa chọn dưới đây là mock để hoàn thiện trải nghiệm checkout.</p>
+        <p className={styles.description}>Chọn phương thức thanh toán phù hợp với luồng backend hiện tại.</p>
       </div>
 
       <div className={styles.list}>

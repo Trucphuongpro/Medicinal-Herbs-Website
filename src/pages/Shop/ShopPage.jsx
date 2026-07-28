@@ -1,4 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import ErrorState from '../../components/common/ErrorState';
+import Loading from '../../components/common/Loading';
+import categoryService from '../../services/category.service';
+import productService from '../../services/product.service';
+import { mapProductToCard } from '../../utils/apiMappers';
 import {
   ShopBreadcrumb,
   ShopPagination,
@@ -6,12 +11,16 @@ import {
   ShopSidebarFilter,
   ShopSortBar,
 } from './components';
-import { products, sortOptions } from './shopData';
+import { sortOptions } from './shopData';
 import styles from './ShopPage.module.css';
 
 const PRODUCTS_PER_PAGE = 6;
 
 function ShopPage() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedPrice, setSelectedPrice] = useState('all');
@@ -19,14 +28,53 @@ function ShopPage() {
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [sortBy, setSortBy] = useState(sortOptions[0].value);
 
+  useEffect(() => {
+    const loadShopData = async () => {
+      try {
+        setLoading(true);
+        setError('');
+
+        const [productResponse, categoryResponse] = await Promise.all([
+          productService.getAll(),
+          categoryService.getAll(),
+        ]);
+
+        setProducts(productResponse.map((product) => mapProductToCard(product)));
+        setCategories(categoryResponse);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Không thể tải dữ liệu cửa hàng.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadShopData();
+  }, []);
+
+  const categoryOptions = useMemo(
+    () => [
+      { value: 'all', label: 'Tất cả danh mục' },
+      ...categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+      })),
+    ],
+    [categories],
+  );
+
   const filteredProducts = useMemo(() => {
     const nextProducts = products.filter((product) => {
-      const matchesCategory =
-        selectedCategory === 'all' || product.categorySlug === selectedCategory;
-      const matchesPrice = selectedPrice === 'all' || product.priceRange === selectedPrice;
-      const matchesRating =
-        selectedRating === 'all' || Math.floor(product.rating) >= Number(selectedRating);
-      const matchesStatus = selectedStatus === 'all' || product.status === selectedStatus;
+      const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
+      const matchesPrice =
+        selectedPrice === 'all' ||
+        (selectedPrice === 'under-200' && product.price < 200000) ||
+        (selectedPrice === '200-500' && product.price >= 200000 && product.price <= 500000) ||
+        (selectedPrice === 'over-500' && product.price > 500000);
+      const matchesRating = selectedRating === 'all' || product.rating >= Number(selectedRating);
+      const matchesStatus =
+        selectedStatus === 'all' ||
+        (selectedStatus === 'in-stock' && product.stock > 0) ||
+        (selectedStatus === 'out-of-stock' && product.stock <= 0);
 
       return matchesCategory && matchesPrice && matchesRating && matchesStatus;
     });
@@ -42,7 +90,7 @@ function ShopPage() {
         case 'name-asc':
           return productA.name.localeCompare(productB.name, 'vi');
         default:
-          return productA.featuredRank - productB.featuredRank;
+          return new Date(productB.createdAt) - new Date(productA.createdAt);
       }
     });
   }, [selectedCategory, selectedPrice, selectedRating, selectedStatus, sortBy]);
@@ -93,6 +141,20 @@ function ShopPage() {
     setCurrentPage(1);
   };
 
+  if (loading) {
+    return <Loading fullScreen text="Đang tải danh sách sản phẩm..." />;
+  }
+
+  if (error) {
+    return (
+      <section className={`page-section ${styles.page}`}>
+        <div className="container">
+          <ErrorState message={error} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={`page-section ${styles.page}`}>
       <div className="container">
@@ -108,12 +170,13 @@ function ShopPage() {
           </div>
           <div className={styles.heroBadge}>
             <strong>{products.length}+</strong>
-            <span>Sản phẩm mock đang hiển thị trong giao diện Shop</span>
+            <span>Sản phẩm đang hiển thị trong giao diện Shop</span>
           </div>
         </div>
 
         <div className={styles.layout}>
           <ShopSidebarFilter
+            categoryOptions={categoryOptions}
             selectedCategory={selectedCategory}
             selectedPrice={selectedPrice}
             selectedRating={selectedRating}

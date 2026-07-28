@@ -2,6 +2,10 @@ import ProductCard from '../../../components/product/ProductCard';
 import styles from './RelatedProducts.module.css';
 
 function RelatedProducts({ products }) {
+  if (!products.length) {
+    return null;
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.header}>

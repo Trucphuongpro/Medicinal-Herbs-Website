@@ -2,7 +2,7 @@ import Button from '../../../components/common/Button';
 import shared from './ProfileSection.module.css';
 import styles from './LogoutTab.module.css';
 
-function LogoutTab({ userName }) {
+function LogoutTab({ userName, onLogout }) {
   return (
     <section className={`${shared.card} ${styles.card}`}>
       <div className={shared.header}>
@@ -18,7 +18,7 @@ function LogoutTab({ userName }) {
       </div>
 
       <div className={shared.actionRow}>
-        <Button variant="danger">Đăng xuất</Button>
+        <Button variant="danger" onClick={onLogout}>Đăng xuất</Button>
         <Button variant="outline">Ở lại</Button>
       </div>
     </section>

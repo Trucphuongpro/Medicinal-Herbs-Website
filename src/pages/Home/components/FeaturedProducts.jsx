@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import EmptyState from '../../../components/common/EmptyState';
 import SectionHeader from '../../../components/common/SectionHeader';
 import ProductCard from '../../../components/product/ProductCard';
-import { featuredProducts } from '../homeData';
 import styles from './FeaturedProducts.module.css';
 
-function FeaturedProducts() {
+function FeaturedProducts({ products = [] }) {
   return (
     <section className={styles.section}>
       <div className="container">
@@ -20,11 +20,18 @@ function FeaturedProducts() {
           </Link>
         </div>
 
-        <div className={styles.grid}>
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {products.length ? (
+          <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Chưa có sản phẩm nổi bật"
+            description="Danh sách sản phẩm hiện chưa có dữ liệu để hiển thị ở khu vực này."
+          />
+        )}
       </div>
     </section>
   );

@@ -1,9 +1,10 @@
+import EmptyState from '../../../components/common/EmptyState';
 import SectionHeader from '../../../components/common/SectionHeader';
 import ProductCard from '../../../components/product/ProductCard';
-import { bestSellerBenefits, bestSellerProducts } from '../homeData';
+import { bestSellerBenefits } from '../homeData';
 import styles from './BestSellerSection.module.css';
 
-function BestSellerSection() {
+function BestSellerSection({ products = [] }) {
   return (
     <section className={styles.section}>
       <div className={`container ${styles.layout}`}>
@@ -27,9 +28,14 @@ function BestSellerSection() {
         </div>
 
         <div className={styles.products}>
-          {bestSellerProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {products.length ? (
+            products.map((product) => <ProductCard key={product.id} product={product} />)
+          ) : (
+            <EmptyState
+              title="Chưa có sản phẩm bán chạy"
+              description="Khu vực này sẽ hiển thị khi backend có dữ liệu sản phẩm."
+            />
+          )}
         </div>
       </div>
     </section>

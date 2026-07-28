@@ -1,19 +1,19 @@
 import axiosClient from './axiosClient';
 
 const orderService = {
-  getAll(params) {
+  async getAll(params) {
     return axiosClient.get('/orders', { params });
   },
 
-  getById(id) {
-    return axiosClient.get(`/orders/${id}`);
+  async getById(id) {
+    return axiosClient.get(`/orders/detail/${id}`);
   },
 
-  create(data) {
+  async create(data) {
     return axiosClient.post('/orders', data);
   },
 
-  cancel(id) {
+  async cancel(id) {
     return axiosClient.patch(`/orders/${id}/cancel`);
   },
 };

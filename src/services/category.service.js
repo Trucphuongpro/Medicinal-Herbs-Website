@@ -1,16 +1,12 @@
 import axiosClient from './axiosClient';
 
 const categoryService = {
-  getAll() {
+  async getAll() {
     return axiosClient.get('/categories');
   },
 
-  getById(id) {
+  async getById(id) {
     return axiosClient.get(`/categories/${id}`);
-  },
-
-  getTree() {
-    return axiosClient.get('/categories/tree');
   },
 };
 

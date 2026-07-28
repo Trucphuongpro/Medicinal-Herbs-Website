@@ -1,8 +1,7 @@
 import SectionHeader from '../../../components/common/SectionHeader';
-import { categories } from '../homeData';
 import styles from './CategoriesSection.module.css';
 
-function CategoriesSection() {
+function CategoriesSection({ categories = [] }) {
   return (
     <section className={styles.section}>
       <div className="container">
