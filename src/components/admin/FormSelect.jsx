@@ -1,6 +1,6 @@
 import styles from './AdminShared.module.css';
 
-function FormSelect({ label, options = [], hint, ...props }) {
+function FormSelect({ label, options = [], hint, error, ...props }) {
   return (
     <label className={styles.fieldGroup}>
       <span className={styles.fieldLabel}>{label}</span>
@@ -11,7 +11,7 @@ function FormSelect({ label, options = [], hint, ...props }) {
           </option>
         ))}
       </select>
-      {hint ? <span className={styles.fieldHint}>{hint}</span> : null}
+      {error ? <span className={styles.fieldError}>{error}</span> : hint ? <span className={styles.fieldHint}>{hint}</span> : null}
     </label>
   );
 }

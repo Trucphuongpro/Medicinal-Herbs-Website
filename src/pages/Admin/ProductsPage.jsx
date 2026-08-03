@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FiEye, FiEdit2, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import EmptyState from '../../components/common/EmptyState';
 import Pagination from '../../components/common/Pagination';
@@ -24,6 +25,7 @@ import styles from '../../components/admin/AdminShared.module.css';
 const PAGE_SIZE = 5;
 
 function ProductsPage() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
   const [status, setStatus] = useState('all');
@@ -71,8 +73,8 @@ function ProductsPage() {
       label: 'Action',
       render: (row) => (
         <div className={styles.actions}>
-          <ActionButton tone="ghost" icon={<FiEye aria-hidden="true" />}>Xem</ActionButton>
-          <ActionButton tone="secondary" icon={<FiEdit2 aria-hidden="true" />}>Sửa</ActionButton>
+          <ActionButton tone="ghost" icon={<FiEye aria-hidden="true" />} onClick={() => navigate(`/admin/products/${row.id}`)}>Xem</ActionButton>
+          <ActionButton tone="secondary" icon={<FiEdit2 aria-hidden="true" />} onClick={() => navigate(`/admin/products/${row.id}/edit`)}>Sửa</ActionButton>
           <ActionButton tone="danger" icon={<FiTrash2 aria-hidden="true" />} onClick={() => setSelectedProduct(row)}>
             Xóa
           </ActionButton>
@@ -86,7 +88,7 @@ function ProductsPage() {
       <PageHeader
         title="Quản lý sản phẩm"
         subtitle="Danh sách sản phẩm với tìm kiếm, filter, sort và các action quản trị thường dùng."
-        actions={<Button><FiPlus aria-hidden="true" /> Thêm sản phẩm</Button>}
+        actions={<Button onClick={() => navigate('/admin/products/create')}><FiPlus aria-hidden="true" /> Thêm sản phẩm</Button>}
       />
 
       <div className={styles.sectionCard}>

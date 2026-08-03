@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../../components/common/Button';
 import {
   FormInput,
@@ -11,9 +12,30 @@ import styles from '../../components/admin/AdminShared.module.css';
 
 function SettingsPage() {
   const [settings, setSettings] = useState(settingsInitialValues);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (field) => (event) => {
     setSettings((prev) => ({ ...prev, [field]: event.target.value }));
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const nextErrors = {};
+    if (!settings.storeName.trim()) nextErrors.storeName = 'Vui lòng nhập tên cửa hàng.';
+    if (!settings.hotline.trim()) nextErrors.hotline = 'Vui lòng nhập hotline.';
+    if (!settings.email.trim()) nextErrors.email = 'Vui lòng nhập email.';
+    if (!settings.address.trim()) nextErrors.address = 'Vui lòng nhập địa chỉ.';
+    if (!settings.policy.trim()) nextErrors.policy = 'Vui lòng nhập chính sách.';
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) return;
+
+    setSubmitting(true);
+    window.setTimeout(() => {
+      setSubmitting(false);
+      toast.success('Đã lưu cài đặt cửa hàng (mock UI).');
+    }, 450);
   };
 
   return (
@@ -24,15 +46,18 @@ function SettingsPage() {
         actions={<Button>Lưu cài đặt</Button>}
       />
 
-      <div className={styles.formGrid}>
+      <form className={styles.formGrid} onSubmit={handleSubmit}>
         <div className={styles.formSection}>
-          <FormInput label="Tên cửa hàng" value={settings.storeName} onChange={handleChange('storeName')} />
-          <FormInput label="Hotline" value={settings.hotline} onChange={handleChange('hotline')} />
-          <FormInput label="Email" value={settings.email} onChange={handleChange('email')} />
-          <FormInput label="Địa chỉ" value={settings.address} onChange={handleChange('address')} />
+          <FormInput label="Tên cửa hàng" value={settings.storeName} onChange={handleChange('storeName')} error={errors.storeName} />
+          <FormInput label="Hotline" value={settings.hotline} onChange={handleChange('hotline')} error={errors.hotline} />
+          <FormInput label="Email" value={settings.email} onChange={handleChange('email')} error={errors.email} />
+          <FormInput label="Địa chỉ" value={settings.address} onChange={handleChange('address')} error={errors.address} />
           <FormInput label="Facebook" value={settings.facebook} onChange={handleChange('facebook')} />
           <FormInput label="Zalo" value={settings.zalo} onChange={handleChange('zalo')} />
-          <FormTextarea label="Chính sách" value={settings.policy} onChange={handleChange('policy')} />
+          <FormTextarea label="Chính sách" value={settings.policy} onChange={handleChange('policy')} error={errors.policy} />
+          <div className={styles.footerActions}>
+            <Button type="submit" disabled={submitting}>{submitting ? 'Đang lưu...' : 'Lưu cài đặt'}</Button>
+          </div>
         </div>
 
         <div className={styles.formSection}>
@@ -52,7 +77,7 @@ function SettingsPage() {
             buttonText="Đổi banner"
           />
         </div>
-      </div>
+      </form>
     </section>
   );
 }

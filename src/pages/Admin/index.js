@@ -1,6 +1,7 @@
 export { default as DashboardPage } from './DashboardPage';
 export { default as ProductsPage } from './ProductsPage';
 export { default as ProductCreatePage } from './ProductCreatePage';
+export { default as ProductDetailPage } from './ProductDetailPage';
 export { default as ProductEditPage } from './ProductEditPage';
 export { default as CategoriesPage } from './CategoriesPage';
 export { default as OrdersPage } from './OrdersPage';

@@ -1,4 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import Button from '../components/common/Button';
+import { disableAdminPreview, getStoredUser, isAdminPreviewEnabled } from '../utils/token';
 import styles from './AdminPreviewLayout.module.css';
 
 const adminLinks = [
@@ -18,6 +20,9 @@ const adminLinks = [
 ];
 
 function AdminPreviewLayout() {
+  const currentUser = getStoredUser();
+  const previewEnabled = isAdminPreviewEnabled();
+
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
@@ -25,6 +30,11 @@ function AdminPreviewLayout() {
           <p className={styles.brandLabel}>Admin Preview</p>
           <h2 className={styles.brandTitle}>Website Dược Liệu</h2>
           <p className={styles.brandText}>Layout tạm để bạn xem nhanh toàn bộ giao diện admin vừa triển khai.</p>
+          <div className={styles.userBox}>
+            <strong>{currentUser?.fullName || currentUser?.name || 'Admin user'}</strong>
+            <span>{currentUser?.email || 'preview@local.dev'}</span>
+            {previewEnabled ? <small>Preview mode đang bật</small> : null}
+          </div>
         </div>
 
         <nav className={styles.nav} aria-label="Admin navigation">
@@ -47,9 +57,23 @@ function AdminPreviewLayout() {
             <p className={styles.headerLabel}>Preview Mode</p>
             <h1 className={styles.headerTitle}>Admin Pages</h1>
           </div>
-          <a className={styles.headerAction} href="/">
-            Về storefront
-          </a>
+          <div className={styles.headerControls}>
+            {previewEnabled ? (
+              <Button
+                variant="ghost"
+                className={styles.previewButton}
+                onClick={() => {
+                  disableAdminPreview();
+                  window.location.reload();
+                }}
+              >
+                Tắt preview
+              </Button>
+            ) : null}
+            <a className={styles.headerAction} href="/">
+              Về storefront
+            </a>
+          </div>
         </header>
 
         <main className={styles.main}>

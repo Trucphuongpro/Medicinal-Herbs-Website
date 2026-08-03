@@ -454,6 +454,13 @@
   font-size: 0.82rem;
 }
 
+.fieldError {
+  margin: 0;
+  color: var(--color-error);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
 .uploadBox {
   border: 1px dashed rgba(45, 106, 79, 0.28);
   border-radius: 1.15rem;

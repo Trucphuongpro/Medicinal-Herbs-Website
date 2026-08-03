@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout';
 import AuthLayout from '../layouts/AuthLayout';
 import ProfileLayout from '../layouts/ProfileLayout';
 import AdminPreviewLayout from '../layouts/AdminPreviewLayout';
+import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -29,6 +30,7 @@ import {
   OrderDetailPage as AdminOrderDetailPage,
   OrdersPage as AdminOrdersPage,
   ProductCreatePage,
+  ProductDetailPage as AdminProductDetailPage,
   ProductEditPage,
   ProductsPage,
   ReportsPage,
@@ -89,22 +91,29 @@ const router = createBrowserRouter([
   },
 
   {
-    path: 'admin',
-    element: <AdminPreviewLayout />,
+    element: <AdminRoute />,
     children: [
-      { index: true, element: <DashboardPage /> },
-      { path: 'products', element: <ProductsPage /> },
-      { path: 'products/create', element: <ProductCreatePage /> },
-      { path: 'products/edit', element: <ProductEditPage /> },
-      { path: 'categories', element: <CategoriesPage /> },
-      { path: 'orders', element: <AdminOrdersPage /> },
-      { path: 'orders/detail', element: <AdminOrderDetailPage /> },
-      { path: 'users', element: <UsersPage /> },
-      { path: 'reviews', element: <ReviewsPage /> },
-      { path: 'coupons', element: <CouponsPage /> },
-      { path: 'inventory', element: <InventoryPage /> },
-      { path: 'reports', element: <ReportsPage /> },
-      { path: 'settings', element: <SettingsPage /> },
+      {
+        path: 'admin',
+        element: <AdminPreviewLayout />,
+        children: [
+          { index: true, element: <DashboardPage /> },
+          { path: 'products', element: <ProductsPage /> },
+          { path: 'products/create', element: <ProductCreatePage /> },
+          { path: 'products/:id', element: <AdminProductDetailPage /> },
+          { path: 'products/:id/edit', element: <ProductEditPage /> },
+          { path: 'products/edit', element: <ProductEditPage /> },
+          { path: 'categories', element: <CategoriesPage /> },
+          { path: 'orders', element: <AdminOrdersPage /> },
+          { path: 'orders/detail', element: <AdminOrderDetailPage /> },
+          { path: 'users', element: <UsersPage /> },
+          { path: 'reviews', element: <ReviewsPage /> },
+          { path: 'coupons', element: <CouponsPage /> },
+          { path: 'inventory', element: <InventoryPage /> },
+          { path: 'reports', element: <ReportsPage /> },
+          { path: 'settings', element: <SettingsPage /> },
+        ],
+      },
     ],
   },
 ]);

@@ -1,0 +1,46 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at top right, rgba(64, 145, 108, 0.14), transparent 24rem),
+    linear-gradient(180deg, #f2f8f5 0%, #f9fcfb 100%);
+}
+
+.card {
+  width: min(100%, 38rem);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(183, 228, 199, 0.9);
+  box-shadow: 0 1.5rem 2.75rem rgba(17, 24, 39, 0.08);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.title {
+  margin: 0;
+  color: #173329;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+}
+
+.description {
+  margin: 1rem 0 0;
+  color: #5d7269;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}

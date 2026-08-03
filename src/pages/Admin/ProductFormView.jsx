@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../../components/common/Button';
 import {
   FormInput,
@@ -25,9 +26,38 @@ function ProductFormView({
   primaryButtonLabel,
 }) {
   const [formValues, setFormValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (field) => (event) => {
     setFormValues((prev) => ({ ...prev, [field]: event.target.value }));
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+  };
+
+  const validate = () => {
+    const nextErrors = {};
+
+    if (!formValues.name.trim()) nextErrors.name = 'Vui lòng nhập tên sản phẩm.';
+    if (!Number(formValues.price) || Number(formValues.price) <= 0) nextErrors.price = 'Giá phải lớn hơn 0.';
+    if (Number(formValues.salePrice) < 0) nextErrors.salePrice = 'Giá khuyến mãi không hợp lệ.';
+    if (Number(formValues.salePrice) > Number(formValues.price)) nextErrors.salePrice = 'Giá khuyến mãi không được lớn hơn giá gốc.';
+    if (Number(formValues.stock) < 0) nextErrors.stock = 'Tồn kho không được âm.';
+    if (!formValues.ingredients.trim()) nextErrors.ingredients = 'Vui lòng nhập thành phần.';
+    if (!formValues.benefits.trim()) nextErrors.benefits = 'Vui lòng nhập công dụng.';
+    if (!formValues.usage.trim()) nextErrors.usage = 'Vui lòng nhập hướng dẫn sử dụng.';
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!validate()) return;
+    setSubmitting(true);
+    window.setTimeout(() => {
+      setSubmitting(false);
+      toast.success(`${primaryButtonLabel} thành công (mock UI).`);
+    }, 500);
   };
 
   return (
@@ -44,6 +74,7 @@ function ProductFormView({
         )}
       />
 
+      <form className={sharedStyles.page} onSubmit={handleSubmit}>
       <div className={sharedStyles.formGrid}>
         <div className={sharedStyles.formSection}>
           <div className={sharedStyles.sectionHeader}>
@@ -52,8 +83,7 @@ function ProductFormView({
               <p className={sharedStyles.sectionDescription}>Xây dựng UI form theo cấu trúc sẵn sàng nối API sau này.</p>
             </div>
           </div>
-
-          <FormInput label="Tên sản phẩm" value={formValues.name} onChange={handleChange('name')} />
+          <FormInput label="Tên sản phẩm" value={formValues.name} onChange={handleChange('name')} error={errors.name} />
           <div className={sharedStyles.formGrid}>
             <FormSelect
               label="Danh mục"
@@ -64,12 +94,13 @@ function ProductFormView({
             <FormInput label="Đơn vị" value={formValues.unit} onChange={handleChange('unit')} />
           </div>
           <div className={sharedStyles.formGrid}>
-            <FormInput label="Giá" type="number" value={formValues.price} onChange={handleChange('price')} />
+            <FormInput label="Giá" type="number" value={formValues.price} onChange={handleChange('price')} error={errors.price} />
             <FormInput
               label="Giá khuyến mãi"
               type="number"
               value={formValues.salePrice}
               onChange={handleChange('salePrice')}
+              error={errors.salePrice}
             />
           </div>
           <div className={sharedStyles.formGrid}>
@@ -78,6 +109,7 @@ function ProductFormView({
               type="number"
               value={formValues.stock}
               onChange={handleChange('stock')}
+              error={errors.stock}
             />
             <FormSelect
               label="Trạng thái"
@@ -128,18 +160,21 @@ function ProductFormView({
             value={formValues.ingredients}
             onChange={handleChange('ingredients')}
             placeholder="Liệt kê thành phần chính"
+            error={errors.ingredients}
           />
           <FormTextarea
             label="Công dụng"
             value={formValues.benefits}
             onChange={handleChange('benefits')}
             placeholder="Mô tả công dụng nổi bật"
+            error={errors.benefits}
           />
           <FormTextarea
             label="Hướng dẫn sử dụng"
             value={formValues.usage}
             onChange={handleChange('usage')}
             placeholder="Cách dùng và lưu ý"
+            error={errors.usage}
           />
         </div>
 
@@ -170,11 +205,14 @@ function ProductFormView({
                 <p className={sharedStyles.itemTitle}>{primaryButtonLabel}</p>
                 <p className={sharedStyles.itemMeta}>Nút chính cho thao tác cuối của form.</p>
               </div>
-              <Button>{primaryButtonLabel}</Button>
+              <Button type="submit" disabled={submitting}>
+                {submitting ? 'Đang xử lý...' : primaryButtonLabel}
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      </form>
     </section>
   );
 }
