@@ -16,6 +16,14 @@ const orderService = {
   async cancel(id) {
     return axiosClient.patch(`/orders/${id}/cancel`);
   },
+
+  async getAdminById(id) {
+    return axiosClient.get(`/orders/${id}`);
+  },
+
+  async updateStatus(id, data) {
+    return axiosClient.patch(`/orders/${id}/status`, data);
+  },
 };
 
 export default orderService;

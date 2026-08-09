@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FiEye, FiEdit2, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import EmptyState from '../../components/common/EmptyState';
+import ErrorState from '../../components/common/ErrorState';
+import Loading from '../../components/common/Loading';
 import Pagination from '../../components/common/Pagination';
 import {
   ActionButton,
@@ -13,19 +15,31 @@ import {
   SearchBox,
   StatusBadge,
 } from '../../components/admin';
-import {
-  productCategories,
-  products,
-  productStatuses,
-  sortOptions,
-} from '../../mocks/adminData';
-import { formatCurrency, formatDate } from './utils';
+import categoryService from '../../services/category.service';
+import productService from '../../services/product.service';
+import { formatCurrency, formatDate, mapApiProductToAdminRow } from './utils';
 import styles from '../../components/admin/AdminShared.module.css';
 
 const PAGE_SIZE = 5;
+const productStatuses = [
+  { value: 'all', label: 'Tất cả trạng thái' },
+  { value: 'active', label: 'Đang bán' },
+  { value: 'out_of_stock', label: 'Hết hàng' },
+];
+const sortOptions = [
+  { value: 'newest', label: 'Mới nhất' },
+  { value: 'oldest', label: 'Cũ nhất' },
+  { value: 'price_asc', label: 'Giá tăng dần' },
+  { value: 'price_desc', label: 'Giá giảm dần' },
+  { value: 'stock_asc', label: 'Tồn kho thấp nhất' },
+];
 
 function ProductsPage() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
   const [status, setStatus] = useState('all');
@@ -33,8 +47,46 @@ function ProductsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const loadProducts = async () => {
+    try {
+      setLoading(true);
+      setError('');
+
+      const [productsResponse, categoriesResponse] = await Promise.all([
+        productService.getAll(),
+        categoryService.getAll(),
+      ]);
+
+      setProducts(productsResponse.map(mapApiProductToAdminRow));
+      setCategories(categoriesResponse);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể tải danh sách sản phẩm.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const productCategories = useMemo(
+    () => [
+      { value: 'all', label: 'Tất cả danh mục' },
+      ...categories.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    ],
+    [categories],
+  );
+
   const filteredProducts = products
-    .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()) || product.sku.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.sku.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
     .filter((product) => (category === 'all' ? true : product.category === category))
     .filter((product) => (status === 'all' ? true : product.status === status))
     .sort((a, b) => {
@@ -47,6 +99,26 @@ function ProductsPage() {
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const pageItems = filteredProducts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const handleDeleteProduct = async () => {
+    if (!selectedProduct) return;
+
+    try {
+      await productService.remove(selectedProduct.id);
+      setSelectedProduct(null);
+      await loadProducts();
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể xóa sản phẩm.');
+    }
+  };
+
+  if (loading) {
+    return <Loading fullScreen text="Đang tải sản phẩm quản trị..." />;
+  }
+
+  if (error && !products.length) {
+    return <ErrorState message={error} onRetry={loadProducts} />;
+  }
 
   const columns = [
     {
@@ -87,9 +159,11 @@ function ProductsPage() {
     <section className={styles.page}>
       <PageHeader
         title="Quản lý sản phẩm"
-        subtitle="Danh sách sản phẩm với tìm kiếm, filter, sort và các action quản trị thường dùng."
+        subtitle="Danh sách sản phẩm đang lấy trực tiếp từ backend để bạn quản lý thật thay vì dữ liệu mẫu."
         actions={<Button onClick={() => navigate('/admin/products/create')}><FiPlus aria-hidden="true" /> Thêm sản phẩm</Button>}
       />
+
+      {error ? <ErrorState message={error} /> : null}
 
       <div className={styles.sectionCard}>
         <FilterBar
@@ -130,10 +204,10 @@ function ProductsPage() {
       <ConfirmDialog
         open={Boolean(selectedProduct)}
         title="Xóa sản phẩm"
-        description={selectedProduct ? `Bạn đang chuẩn bị xóa "${selectedProduct.name}". Đây chỉ là UI mock, chưa tác động dữ liệu thật.` : ''}
+        description={selectedProduct ? `Bạn đang chuẩn bị xóa "${selectedProduct.name}" khỏi dữ liệu thật.` : ''}
         confirmText="Xóa sản phẩm"
         onCancel={() => setSelectedProduct(null)}
-        onConfirm={() => setSelectedProduct(null)}
+        onConfirm={handleDeleteProduct}
       />
     </section>
   );

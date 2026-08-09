@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import ErrorState from '../../components/common/ErrorState';
 import Button from '../../components/common/Button';
 import {
   FormInput,
@@ -8,26 +10,75 @@ import {
   PageHeader,
   UploadImage,
 } from '../../components/admin';
-import {
-  productCategories,
-  productStatuses,
-} from '../../mocks/adminData';
+import categoryService from '../../services/category.service';
+import productService from '../../services/product.service';
+import uploadService from '../../services/upload.service';
+import { buildProductPayload } from './utils';
 import sharedStyles from '../../components/admin/AdminShared.module.css';
 
-const categoryOptions = productCategories.filter((item) => item.value !== 'all');
-const statusOptions = productStatuses.filter((item) => item.value !== 'all');
+const statusOptions = [
+  { value: 'active', label: 'Đang bán' },
+  { value: 'out_of_stock', label: 'Hết hàng' },
+];
 
 function ProductFormView({
   title,
   subtitle,
   initialValues,
-  heroImages,
-  galleryImages,
   primaryButtonLabel,
+  mode,
+  productId,
 }) {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [pageError, setPageError] = useState('');
+
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [initialValues]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const response = await categoryService.getAll();
+        setCategories(response);
+      } catch (err) {
+        setPageError(err.response?.data?.message || 'Không thể tải danh mục cho form sản phẩm.');
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!categories.length) return;
+
+    setFormValues((prev) => {
+      if (prev.category) return prev;
+      return {
+        ...prev,
+        category: categories[0].id,
+      };
+    });
+  }, [categories]);
+
+  const categoryOptions = useMemo(
+    () =>
+      categories.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    [categories],
+  );
+
+  const heroImages = formValues.image
+    ? [{ src: formValues.image, label: 'Ảnh đại diện hiện tại' }]
+    : [];
+  const galleryImages = heroImages;
 
   const handleChange = (field) => (event) => {
     setFormValues((prev) => ({ ...prev, [field]: event.target.value }));
@@ -38,6 +89,7 @@ function ProductFormView({
     const nextErrors = {};
 
     if (!formValues.name.trim()) nextErrors.name = 'Vui lòng nhập tên sản phẩm.';
+    if (!formValues.category) nextErrors.category = 'Vui lòng chọn danh mục.';
     if (!Number(formValues.price) || Number(formValues.price) <= 0) nextErrors.price = 'Giá phải lớn hơn 0.';
     if (Number(formValues.salePrice) < 0) nextErrors.salePrice = 'Giá khuyến mãi không hợp lệ.';
     if (Number(formValues.salePrice) > Number(formValues.price)) nextErrors.salePrice = 'Giá khuyến mãi không được lớn hơn giá gốc.';
@@ -50,14 +102,48 @@ function ProductFormView({
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleUploadImage = async (files) => {
+    const [file] = files;
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      setPageError('');
+      const response = await uploadService.uploadImage(file);
+      setFormValues((prev) => ({
+        ...prev,
+        image: response.secure_url,
+      }));
+      toast.success('Tải ảnh thành công.');
+    } catch (err) {
+      setPageError(err.response?.data?.message || 'Không thể tải ảnh lên.');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validate()) return;
-    setSubmitting(true);
-    window.setTimeout(() => {
+
+    try {
+      setSubmitting(true);
+      setPageError('');
+      const payload = buildProductPayload(formValues);
+
+      if (mode === 'edit' && productId) {
+        await productService.update(productId, payload);
+      } else {
+        await productService.create(payload);
+      }
+
       setSubmitting(false);
-      toast.success(`${primaryButtonLabel} thành công (mock UI).`);
-    }, 500);
+      toast.success(`${primaryButtonLabel} thành công.`);
+      navigate('/admin/products');
+    } catch (err) {
+      setSubmitting(false);
+      setPageError(err.response?.data?.message || 'Không thể lưu sản phẩm.');
+    }
   };
 
   return (
@@ -73,6 +159,8 @@ function ProductFormView({
           </>
         )}
       />
+
+      {pageError ? <ErrorState message={pageError} /> : null}
 
       <form className={sharedStyles.page} onSubmit={handleSubmit}>
       <div className={sharedStyles.formGrid}>
@@ -90,6 +178,8 @@ function ProductFormView({
               value={formValues.category}
               onChange={handleChange('category')}
               options={categoryOptions}
+              hint={!categoryOptions.length ? 'Chưa tải được danh mục hoặc chưa có danh mục nào.' : undefined}
+              error={errors.category}
             />
             <FormInput label="Đơn vị" value={formValues.unit} onChange={handleChange('unit')} />
           </div>
@@ -135,15 +225,21 @@ function ProductFormView({
           </div>
           <UploadImage
             label="Ảnh sản phẩm"
-            description="Ảnh đại diện hiển thị tại danh sách và chi tiết sản phẩm."
+            description="Ảnh đại diện hiển thị tại danh sách và chi tiết sản phẩm, đang upload qua API backend."
             images={heroImages}
             buttonText="Chọn ảnh đại diện"
+            onSelectFiles={handleUploadImage}
+            uploading={uploading}
+            disabled={submitting}
           />
           <UploadImage
             label="Thư viện ảnh"
-            description="Thư viện ảnh phụ dùng cho gallery và banner mô tả."
+            description="Backend hiện chỉ có một trường ảnh chính, nên thư viện đang hiển thị cùng ảnh đại diện."
             images={galleryImages}
-            buttonText="Thêm ảnh thư viện"
+            buttonText="Cập nhật ảnh"
+            onSelectFiles={handleUploadImage}
+            uploading={uploading}
+            disabled={submitting}
           />
         </div>
       </div>
@@ -191,14 +287,18 @@ function ProductFormView({
                 <p className={sharedStyles.itemTitle}>Lưu nháp</p>
                 <p className={sharedStyles.itemMeta}>Dùng khi sản phẩm chưa sẵn sàng xuất bản.</p>
               </div>
-              <Button variant="outline">Lưu nháp</Button>
+              <Button variant="outline" disabled>
+                Lưu nháp
+              </Button>
             </div>
             <div className={sharedStyles.stackItem}>
               <div>
                 <p className={sharedStyles.itemTitle}>Xem trước</p>
                 <p className={sharedStyles.itemMeta}>Kiểm tra dữ liệu hiển thị trước khi public.</p>
               </div>
-              <Button variant="ghost">Xem trước</Button>
+              <Button variant="ghost" disabled>
+                Xem trước
+              </Button>
             </div>
             <div className={sharedStyles.stackItem}>
               <div>

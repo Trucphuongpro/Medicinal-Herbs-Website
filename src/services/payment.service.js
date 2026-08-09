@@ -12,12 +12,12 @@ const paymentMethods = [
   {
     id: 'vnpay',
     label: 'VNPay',
-    description: 'Thanh toán trực tuyến qua cổng VNPay khi backend hỗ trợ luồng đầy đủ.',
+    description: 'Thanh toán trực tuyến qua cổng VNPay theo enum phương thức thanh toán hiện có của backend.',
   },
   {
     id: 'momo',
     label: 'MoMo',
-    description: 'Thanh toán bằng ví điện tử MoMo khi backend hỗ trợ luồng đầy đủ.',
+    description: 'Thanh toán bằng ví điện tử MoMo theo enum phương thức thanh toán hiện có của backend.',
   },
 ];
 

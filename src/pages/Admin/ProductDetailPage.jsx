@@ -1,17 +1,42 @@
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import ErrorState from '../../components/common/ErrorState';
+import Loading from '../../components/common/Loading';
 import { PageHeader, StatusBadge } from '../../components/admin';
-import { products } from '../../mocks/adminData';
-import { formatCurrency, formatDate } from './utils';
+import productService from '../../services/product.service';
+import { formatCurrency, formatDate, mapApiProductToAdminRow } from './utils';
 import styles from '../../components/admin/AdminShared.module.css';
 
 function ProductDetailPage() {
   const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const product = useMemo(
-    () => products.find((item) => item.id === id) || products[0],
-    [id],
-  );
+  useEffect(() => {
+    const loadProduct = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const response = await productService.getById(id);
+        setProduct(mapApiProductToAdminRow(response));
+      } catch (err) {
+        setError(err.response?.data?.message || 'Không thể tải chi tiết sản phẩm.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
+  }, [id]);
+
+  if (loading) {
+    return <Loading fullScreen text="Đang tải chi tiết sản phẩm..." />;
+  }
+
+  if (error || !product) {
+    return <ErrorState message={error || 'Không tìm thấy sản phẩm.'} />;
+  }
 
   return (
     <section className={styles.page}>
