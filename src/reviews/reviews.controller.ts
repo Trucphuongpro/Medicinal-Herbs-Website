@@ -18,9 +18,13 @@ import {
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
+import { UpdateReviewVisibilityDto } from './dto/update-review-visibility.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import type { CurrentUserPayload } from '../auth/decorator/current-user.decorator';
+import { RolesGuard } from '../auth/guards/roles/roles.guard';
+import { Roles } from '../auth/decorator/roles.decorator';
+import { UserRole } from '../users/enum/enum.userrole';
 
 @ApiTags('reviews')
 @Controller('reviews')
@@ -46,6 +50,15 @@ export class ReviewsController {
   }
 
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({ summary: 'Admin xem tất cả review' })
+  @Get('admin')
+  findAllAdmin() {
+    return this.reviewsService.findAllAdmin();
+  }
+
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Sửa review của người dùng' })
   @ApiParam({ name: 'id', description: 'UUID của review' })
@@ -68,5 +81,31 @@ export class ReviewsController {
     @Param('id', new ParseUUIDPipe()) id: string,
   ) {
     return this.reviewsService.remove(user.userId, id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({ summary: 'Admin ẩn hoặc hiện review' })
+  @ApiParam({ name: 'id', description: 'UUID của review' })
+  @Patch('admin/:id/visibility')
+  updateVisibility(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() updateReviewVisibilityDto: UpdateReviewVisibilityDto,
+  ) {
+    return this.reviewsService.updateVisibility(
+      id,
+      updateReviewVisibilityDto.is_hidden,
+    );
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({ summary: 'Admin xóa review' })
+  @ApiParam({ name: 'id', description: 'UUID của review' })
+  @Delete('admin/:id')
+  removeAdmin(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.reviewsService.removeAdmin(id);
   }
 }

@@ -9,7 +9,7 @@ import { UserRole } from '../enum/enum.userrole';
 
 export class CreateUserDto {
   @IsNotEmpty()
-  full_name!: string;
+  fullname!: string;
 
   @IsEmail()
   email!: string;

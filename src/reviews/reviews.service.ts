@@ -22,6 +22,10 @@ type ReviewAuthor = Pick<
 
 type ReviewResponse = Omit<Review, 'user' | 'product'> & {
   user: ReviewAuthor | null;
+  product?: {
+    id: string;
+    name: string;
+  };
 };
 
 @Injectable()
@@ -84,7 +88,7 @@ export class ReviewsService {
 
   async findByProduct(productId: string): Promise<ReviewResponse[]> {
     const reviews = await this.reviewRepository.find({
-      where: { product_id: productId },
+      where: { product_id: productId, is_hidden: false },
       order: { created_at: 'DESC' },
       relations: { user: true },
     });
@@ -146,6 +150,46 @@ export class ReviewsService {
     return { message: 'Review deleted successfully' };
   }
 
+  async findAllAdmin(): Promise<ReviewResponse[]> {
+    const reviews = await this.reviewRepository.find({
+      order: { created_at: 'DESC' },
+      relations: { user: true, product: true },
+    });
+
+    return reviews.map((review) => this.sanitizeReview(review));
+  }
+
+  async updateVisibility(
+    id: string,
+    isHidden: boolean,
+  ): Promise<ReviewResponse> {
+    const review = await this.reviewRepository.findOne({
+      where: { id },
+    });
+
+    if (!review) {
+      throw new NotFoundException(`Review with id "${id}" not found`);
+    }
+
+    review.is_hidden = isHidden;
+    await this.reviewRepository.save(review);
+
+    return this.findById(review.id);
+  }
+
+  async removeAdmin(id: string): Promise<{ message: string }> {
+    const review = await this.reviewRepository.findOne({
+      where: { id },
+    });
+
+    if (!review) {
+      throw new NotFoundException(`Review with id "${id}" not found`);
+    }
+
+    await this.reviewRepository.remove(review);
+    return { message: 'Review deleted successfully' };
+  }
+
   private async ensureUserPurchasedDeliveredProduct(
     userId: string,
     productId: string,
@@ -202,7 +246,7 @@ export class ReviewsService {
   }
 
   private sanitizeReview(review: Review): ReviewResponse {
-    const { user, ...rest } = review;
+    const { user, product, ...rest } = review;
 
     return {
       ...rest,
@@ -215,6 +259,12 @@ export class ReviewsService {
             created_at: user.created_at,
           }
         : null,
+      product: product
+        ? {
+            id: product.id,
+            name: product.name,
+          }
+        : undefined,
     };
   }
 }

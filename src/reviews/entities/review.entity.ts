@@ -36,6 +36,9 @@ export class Review {
   @Column({ type: 'text', nullable: true })
   comment: string | null;
 
+  @Column({ type: 'boolean', default: false })
+  is_hidden: boolean;
+
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 }
