@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
 import orderService from '../../services/order.service';
-import { mapOrderToCard } from '../../utils/apiMappers';
+import { mapOrderToCard, toOrderList } from '../../utils/apiMappers';
 import { OrdersHeader, OrdersList, OrdersTabs } from './components';
 import { defaultStatusTab, orderStatusTabs } from './ordersData';
 import styles from './OrdersPage.module.css';
@@ -18,7 +18,7 @@ function OrdersPage() {
       setLoading(true);
       setError('');
       const response = await orderService.getAll();
-      setOrders((response || []).map(mapOrderToCard));
+      setOrders(toOrderList(response).map(mapOrderToCard));
     } catch (err) {
       setError(err.response?.data?.message || 'Không thể tải danh sách đơn hàng.');
     } finally {

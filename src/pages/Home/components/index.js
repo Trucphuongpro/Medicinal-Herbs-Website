@@ -5,5 +5,3 @@ export { default as BestSellerSection } from './BestSellerSection';
 export { default as PromotionBanner } from './PromotionBanner';
 export { default as AboutSection } from './AboutSection';
 export { default as Testimonials } from './Testimonials';
-export { default as BlogSection } from './BlogSection';
-export { default as Newsletter } from './Newsletter';

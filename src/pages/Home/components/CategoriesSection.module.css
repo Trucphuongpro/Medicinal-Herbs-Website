@@ -26,15 +26,13 @@
   box-shadow: 0 20px 34px rgba(27, 67, 50, 0.08);
 }
 
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
+.thumbnail,
+.thumbnailFallback {
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 1rem;
+  object-fit: cover;
   background: rgba(216, 243, 220, 0.8);
-  font-size: 1.45rem;
 }
 
 .name {

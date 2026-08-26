@@ -171,6 +171,21 @@ export const bestSellerProducts = [
   },
 ];
 
+export const heroGallery = [
+  {
+    image: '/images/products/tra-hoa-cuc.jpg',
+    alt: 'Hoa cúc khô đang hãm trong ấm sứ',
+  },
+  {
+    image: '/images/products/que-chi.jpg',
+    alt: 'Thanh quế, bột quế và nụ quế khô',
+  },
+  {
+    image: '/images/products/nam-linh-chi.jpg',
+    alt: 'Tai nấm linh chi đỏ mọc trên thân gỗ',
+  },
+];
+
 export const heroHighlights = [
   'Nguồn dược liệu tuyển chọn theo mùa',
   'Đóng gói sạch, thông tin minh bạch',
@@ -181,12 +196,6 @@ export const heroStats = [
   { value: '1200+', label: 'Khách hàng quay lại' },
   { value: '48h', label: 'Giao nhanh tại nội thành' },
   { value: '98%', label: 'Đánh giá hài lòng' },
-];
-
-export const bestSellerBenefits = [
-  'Top sản phẩm được chọn nhiều trong 30 ngày gần đây',
-  'Hương vị dễ dùng, phù hợp cả người mới bắt đầu',
-  'Đóng gói chỉn chu, thích hợp mua dùng hoặc làm quà',
 ];
 
 export const aboutPoints = [
@@ -204,56 +213,3 @@ export const aboutPoints = [
   },
 ];
 
-export const testimonials = [
-  {
-    id: 1,
-    name: 'Minh Anh',
-    role: 'Khách hàng văn phòng',
-    quote:
-      'Mình thích cách trang này trình bày rất rõ công dụng và cách dùng. Chọn quà cho ba mẹ cũng cảm thấy yên tâm hơn.',
-  },
-  {
-    id: 2,
-    name: 'Quang Huy',
-    role: 'Người dùng lâu năm',
-    quote:
-      'Các set trà thảo mộc đóng gói đẹp, uống nhẹ và dễ duy trì mỗi ngày. Giao hàng cũng nhanh hơn mình nghĩ.',
-  },
-  {
-    id: 3,
-    name: 'Thảo Nhi',
-    role: 'Khách mua quà biếu',
-    quote:
-      'Điểm mình thích nhất là giao diện gọn và nhìn cao cấp, không bị rối. Mình tìm được set quà rất nhanh.',
-  },
-];
-
-export const blogPosts = [
-  {
-    id: 1,
-    title: 'Cách chọn trà thảo mộc phù hợp cho nhịp sống bận rộn',
-    excerpt: 'Gợi ý 3 nhóm trà dễ bắt đầu nếu bạn muốn duy trì thói quen chăm sóc sức khỏe mỗi ngày.',
-    tag: 'Mẹo sử dụng',
-    readTime: '5 phút đọc',
-  },
-  {
-    id: 2,
-    title: 'Dược liệu làm quà: nên ưu tiên tiêu chí nào để vừa đẹp vừa thiết thực',
-    excerpt: 'Từ mức giá, bao bì đến công dụng, đây là những điểm quan trọng khi chọn quà biếu sức khỏe.',
-    tag: 'Quà tặng',
-    readTime: '4 phút đọc',
-  },
-  {
-    id: 3,
-    title: 'Gợi ý xây dựng góc trà tại nhà với cảm giác thư thả hơn mỗi tối',
-    excerpt: 'Một vài cách sắp xếp đơn giản giúp việc pha trà và nghỉ ngơi trở thành thói quen dễ duy trì.',
-    tag: 'Phong cách sống',
-    readTime: '6 phút đọc',
-  },
-];
-
-export const newsletterBenefits = [
-  'Cập nhật sản phẩm mới theo mùa',
-  'Nhận ưu đãi riêng cho khách đăng ký',
-  'Gợi ý cách dùng và bảo quản đơn giản',
-];

@@ -2,26 +2,26 @@ import SectionHeader from '../../../components/common/SectionHeader';
 import { aboutPoints } from '../homeData';
 import styles from './AboutSection.module.css';
 
-function AboutSection() {
+function AboutSection({ productCount = 0, categoryCount = 0 }) {
   return (
     <section className={styles.section}>
       <div className={`container ${styles.layout}`}>
         <div className={styles.storyPanel}>
           <div className={styles.storyBadge}>Từ vùng nguyên liệu đến bàn trà</div>
-          <h3 className={styles.storyTitle}>Một trang Home được thiết kế để vừa dễ chọn, vừa tạo cảm giác an tâm.</h3>
+          <h3 className={styles.storyTitle}>Dược liệu chọn theo mùa, sơ chế đúng cách và ghi rõ nguồn gốc.</h3>
           <p className={styles.storyText}>
-            Chúng tôi ưu tiên cách trình bày nhẹ mắt, thông tin rõ ràng và cảm giác gần gũi để
-            người dùng lần đầu vẫn nhanh chóng tìm được sản phẩm phù hợp.
+            Mỗi lô hàng đều được kiểm tra độ ẩm, màu sắc và mùi trước khi đóng gói. Trên bao bì
+            luôn ghi rõ vùng trồng, cách dùng và hạn sử dụng.
           </p>
 
           <div className={styles.metrics}>
             <div>
-              <strong>30+</strong>
-              <span>Dòng sản phẩm thảo mộc được chọn lọc</span>
+              <strong>{productCount}</strong>
+              <span>Sản phẩm đang bán</span>
             </div>
             <div>
-              <strong>12</strong>
-              <span>Danh mục theo nhu cầu sử dụng thực tế</span>
+              <strong>{categoryCount}</strong>
+              <span>Danh mục theo nhu cầu sử dụng</span>
             </div>
           </div>
         </div>
@@ -29,8 +29,7 @@ function AboutSection() {
         <div className={styles.content}>
           <SectionHeader
             eyebrow="Vì sao chọn chúng tôi"
-            title="Trải nghiệm gọn, chỉn chu và phù hợp với khách hàng hiện đại."
-            description="Không cần quá nhiều lớp nội dung, trang chủ tập trung vào những điểm giúp khách chọn nhanh hơn và cảm nhận được chất lượng thương hiệu."
+            title="Vì sao khách chọn mua ở đây."
           />
 
           <div className={styles.points}>

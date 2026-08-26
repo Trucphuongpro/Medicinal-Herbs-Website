@@ -5,57 +5,18 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 2rem;
-  align-items: start;
-}
-
-.intro {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.benefits {
-  display: grid;
-  gap: 1rem;
-}
-
-.benefitItem {
-  display: flex;
-  gap: 0.9rem;
-  align-items: flex-start;
-  padding: 1rem 1.1rem;
-  border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(45, 106, 79, 0.08);
-}
-
-.benefitIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: 50%;
-  background: rgba(64, 145, 108, 0.16);
-  color: var(--color-primary-dark);
-  font-weight: var(--font-weight-bold);
-}
-
-.benefitItem p {
-  color: var(--color-text-muted);
-  line-height: 1.65;
 }
 
 .products {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
 @media (max-width: 1024px) {
-  .layout {
-    grid-template-columns: 1fr;
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

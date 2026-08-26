@@ -9,10 +9,6 @@ function PromotionBanner() {
           <div className={styles.content}>
             <span className={styles.label}>Ưu đãi trong tuần</span>
             <h2 className={styles.title}>Ưu đãi cho set quà thảo mộc thanh lịch và dễ tặng.</h2>
-            <p className={styles.description}>
-              Giảm trực tiếp cho các combo quà biếu sức khỏe được đóng gói sẵn, phù hợp tặng gia
-              đình, đối tác và người thân.
-            </p>
           </div>
 
           <div className={styles.side}>

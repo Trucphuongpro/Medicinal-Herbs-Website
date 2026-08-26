@@ -1,0 +1,55 @@
+.section {
+  padding: 0 0 1rem;
+  background: linear-gradient(180deg, #f4fbf5 0%, #ffffff 100%);
+}
+
+/* Dai anh chay het chieu ngang man hinh, khong bo trong container. */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.image {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+}
+
+.image:first-child {
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+.image:last-child {
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .image:nth-child(n + 4) {
+    display: none;
+  }
+
+  .image {
+    height: 12rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .image:nth-child(n + 3) {
+    display: none;
+  }
+
+  .image {
+    height: 10rem;
+  }
+}

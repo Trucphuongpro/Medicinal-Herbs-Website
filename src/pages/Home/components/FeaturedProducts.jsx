@@ -12,7 +12,6 @@ function FeaturedProducts({ products = [] }) {
           <SectionHeader
             eyebrow="Sản phẩm chọn lọc"
             title="Những lựa chọn dễ bắt đầu cho người yêu thảo mộc."
-            description="Ưu tiên các sản phẩm có trải nghiệm dùng hằng ngày, công dụng quen thuộc và hình thức gọn gàng."
           />
 
           <Link to="/shop" className={styles.link}>
@@ -29,7 +28,7 @@ function FeaturedProducts({ products = [] }) {
         ) : (
           <EmptyState
             title="Chưa có sản phẩm nổi bật"
-            description="Danh sách sản phẩm hiện chưa có dữ liệu để hiển thị ở khu vực này."
+            description="Cửa hàng đang cập nhật sản phẩm mới."
           />
         )}
       </div>

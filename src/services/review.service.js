@@ -1,6 +1,10 @@
 import axiosClient from './axiosClient';
 
 const reviewService = {
+  async getFeatured() {
+    return axiosClient.get('/reviews/featured');
+  },
+
   async getByProduct(productId) {
     return axiosClient.get(`/reviews/product/${productId}`);
   },

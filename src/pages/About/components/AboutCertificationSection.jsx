@@ -9,7 +9,7 @@ function AboutCertificationSection() {
         <SectionHeader
           eyebrow="Chứng nhận"
           title="Những cam kết thể hiện sự nhất quán và tin cậy trong vận hành thương hiệu."
-          description="Đây là khu vực placeholder nội dung chứng nhận để sau này có thể thay bằng tài liệu hoặc hình ảnh thực tế mà không cần đổi bố cục."
+          description="Ba điều chúng tôi giữ cố định trong mọi lô hàng."
           align="center"
         />
 

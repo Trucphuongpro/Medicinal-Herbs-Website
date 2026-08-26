@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import heroImage from '../../../assets/hero.png';
-import { heroHighlights, heroStats } from '../homeData';
+import { heroGallery, heroHighlights, heroStats } from '../homeData';
 import styles from './Hero.module.css';
 
 function Hero() {
@@ -36,13 +35,16 @@ function Hero() {
 
         <div className={styles.visual}>
           <div className={styles.imageFrame}>
-            <img src={heroImage} alt="Bộ sưu tập dược liệu thiên nhiên" className={styles.image} />
-          </div>
-
-          <div className={styles.floatingCard}>
-            <p className={styles.floatingLabel}>Bộ sưu tập nổi bật</p>
-            <strong className={styles.floatingTitle}>Trà thảo mộc và quà biếu sức khỏe</strong>
-            <span className={styles.floatingMeta}>Được chọn nhiều cho nhu cầu chăm sóc hằng ngày</span>
+            <div className={styles.gallery}>
+              {heroGallery.map((item, index) => (
+                <figure
+                  key={item.image}
+                  className={index === 0 ? styles.galleryMain : styles.gallerySide}
+                >
+                  <img src={item.image} alt={item.alt} className={styles.image} loading="eager" />
+                </figure>
+              ))}
+            </div>
           </div>
 
           <div className={styles.statsCard}>

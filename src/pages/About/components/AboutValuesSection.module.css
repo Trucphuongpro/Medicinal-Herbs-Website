@@ -16,10 +16,27 @@
 .card {
   display: grid;
   gap: 0.75rem;
-  padding: 1.4rem;
+  padding: 1.4rem 1.4rem 1.4rem 1.75rem;
   border-radius: 1.5rem;
   background: #ffffff;
   border: 1px solid rgba(45, 106, 79, 0.08);
+  border-left: 5px solid transparent;
+}
+
+/* Ba tong mau lay tu chinh duoc lieu: la thao moc, mat ong, vo que. */
+.green {
+  border-left-color: #2d6a4f;
+  background: linear-gradient(120deg, rgba(216, 243, 220, 0.6) 0%, #ffffff 55%);
+}
+
+.amber {
+  border-left-color: #b8860b;
+  background: linear-gradient(120deg, rgba(253, 240, 205, 0.75) 0%, #ffffff 55%);
+}
+
+.clay {
+  border-left-color: #a0522d;
+  background: linear-gradient(120deg, rgba(246, 226, 213, 0.7) 0%, #ffffff 55%);
 }
 
 .card h3 {

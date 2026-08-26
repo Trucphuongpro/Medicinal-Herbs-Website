@@ -5,7 +5,7 @@ import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
 import orderService from '../../services/order.service';
 import userService from '../../services/user.service';
-import { mapOrderToCard, mapProfile } from '../../utils/apiMappers';
+import { mapOrderToCard, mapProfile, toOrderList } from '../../utils/apiMappers';
 import { clearTokens } from '../../utils/token';
 import {
   AddressTab,
@@ -58,9 +58,9 @@ function ProfilePage() {
         orderService.getAll(),
       ]);
 
-      const mappedOrders = (ordersResponse || []).map(mapOrderToCard);
-      setOrders(mappedOrders);
-      setUserProfile(mapProfile(profileResponse, ordersResponse || []));
+      const orderList = toOrderList(ordersResponse);
+      setOrders(orderList.map(mapOrderToCard));
+      setUserProfile(mapProfile(profileResponse, orderList));
     } catch (err) {
       setError(err.response?.data?.message || 'Không thể tải thông tin tài khoản.');
     } finally {

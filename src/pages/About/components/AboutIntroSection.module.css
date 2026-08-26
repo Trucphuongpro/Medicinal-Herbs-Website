@@ -43,3 +43,17 @@
     padding-bottom: 4rem;
   }
 }
+
+.story {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.storyImage {
+  width: 100%;
+  height: 15rem;
+  border-radius: 1.5rem;
+  object-fit: cover;
+  box-shadow: 0 18px 34px rgba(20, 62, 46, 0.12);
+}

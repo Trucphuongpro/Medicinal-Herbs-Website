@@ -19,6 +19,14 @@
   text-align: center;
 }
 
+.card:nth-child(2) {
+  background: linear-gradient(180deg, rgba(253, 240, 205, 0.5) 0%, #ffffff 100%);
+}
+
+.card:nth-child(3) {
+  background: linear-gradient(180deg, rgba(246, 226, 213, 0.5) 0%, #ffffff 100%);
+}
+
 .icon {
   display: inline-flex;
   align-items: center;
@@ -27,9 +35,17 @@
   height: 2.4rem;
   margin: 0 auto;
   border-radius: 50%;
-  background: rgba(216, 243, 220, 0.85);
-  color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+  color: #ffffff;
   font-weight: var(--font-weight-bold);
+}
+
+.card:nth-child(2) .icon {
+  background: #b8860b;
+}
+
+.card:nth-child(3) .icon {
+  background: #a0522d;
 }
 
 .card h3 {

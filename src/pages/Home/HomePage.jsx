@@ -8,11 +8,9 @@ import { mapCategoryToCard, mapProductToCard } from '../../utils/apiMappers';
 import {
   AboutSection,
   BestSellerSection,
-  BlogSection,
   CategoriesSection,
   FeaturedProducts,
   Hero,
-  Newsletter,
   PromotionBanner,
   Testimonials,
 } from './components';
@@ -70,7 +68,7 @@ function HomePage() {
           <div className="container">
             <EmptyState
               title="Chưa có danh mục"
-              description="Backend chưa trả về danh mục nào để hiển thị trên trang chủ."
+              description="Danh mục sẽ hiển thị ở đây khi cửa hàng cập nhật."
             />
           </div>
         </section>
@@ -78,10 +76,8 @@ function HomePage() {
       <FeaturedProducts products={products.slice(0, 4)} />
       <BestSellerSection products={products.slice(4, 8).length ? products.slice(4, 8) : products.slice(0, 4)} />
       <PromotionBanner />
-      <AboutSection />
+      <AboutSection productCount={products.length} categoryCount={categories.length} />
       <Testimonials />
-      <BlogSection />
-      <Newsletter />
     </>
   );
 }

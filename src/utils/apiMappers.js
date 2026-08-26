@@ -29,13 +29,17 @@ const slugify = (value = '') =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-export const mapCategoryToCard = (category) => ({
-  id: category.id,
-  name: category.name,
-  description: `Hiện có ${category.products?.length ?? 0} sản phẩm trong danh mục này.`,
-  highlight: `${category.products?.length ?? 0} sản phẩm`,
-  icon: category.name?.charAt(0)?.toUpperCase() ?? 'D',
-});
+export const mapCategoryToCard = (category) => {
+  const products = category.products ?? [];
+
+  return {
+    id: category.id,
+    name: category.name,
+    highlight: `${products.length} sản phẩm`,
+    // Anh dai dien lay tu san pham dau tien co anh trong danh muc.
+    thumbnail: products.find((product) => product.image)?.image ?? null,
+  };
+};
 
 export const mapProductToCard = (product, reviews = []) => {
   const rating =
@@ -130,7 +134,20 @@ export const mapOrderToCard = (order) => {
   };
 };
 
-export const mapProfile = (user, orders = []) => ({
+/**
+ * GET /orders tra ve mang cho USER nhung tra ve { data, total, page, limit } cho ADMIN.
+ * Chuan hoa ve mang de cac trang dung chung mot kieu du lieu.
+ */
+export const toOrderList = (response) => {
+  if (Array.isArray(response)) return response;
+  if (Array.isArray(response?.data)) return response.data;
+  return [];
+};
+
+export const mapProfile = (rawUser, orders = []) => {
+  const user = rawUser ?? {};
+
+  return {
   fullName: user.fullname ?? '',
   email: user.email ?? '',
   phone: user.phone ?? '',
@@ -138,7 +155,8 @@ export const mapProfile = (user, orders = []) => ({
   memberSince: user.created_at ? new Date(user.created_at).getFullYear().toString() : '',
   totalOrders: orders.length,
   defaultAddressLabel: orders[0]?.shipping_address ? 'Đơn gần nhất' : 'Chưa có',
-});
+  };
+};
 
 export const buildShippingAddress = (formState) =>
   [formState.address, formState.ward, formState.district, formState.province]
