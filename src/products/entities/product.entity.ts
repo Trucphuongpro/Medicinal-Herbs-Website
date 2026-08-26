@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+  JoinColumn,
   Column,
   CreateDateColumn,
   Entity,
@@ -37,6 +38,7 @@ export class Product {
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: 'RESTRICT',
   })
+  @JoinColumn({ name: 'category_id' })
   category!: Category;
 
   @ApiProperty({

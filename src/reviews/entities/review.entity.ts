@@ -1,4 +1,5 @@
 import {
+  JoinColumn,
   Column,
   CreateDateColumn,
   Entity,
@@ -25,9 +26,11 @@ export class Review {
   product_id: string;
 
   @ManyToOne(() => User, (user) => user.reviews, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Product, (product) => product.reviews, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'product_id' })
   product: Product;
 
   @Column({ type: 'int' })

@@ -1,4 +1,5 @@
 import {
+  JoinColumn,
   Column,
   CreateDateColumn,
   Entity,
@@ -37,6 +38,7 @@ export class Order {
   user_id!: string;
 
   @ManyToOne(() => User, (user) => user.orders, { onDelete: 'RESTRICT' })
+  @JoinColumn({ name: 'user_id' })
   user!: User;
 
   @Column({ type: 'numeric', precision: 12, scale: 2 })

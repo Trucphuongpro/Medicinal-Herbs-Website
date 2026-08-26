@@ -1,4 +1,5 @@
 import {
+  JoinColumn,
   Column,
   Entity,
   Index,
@@ -24,11 +25,13 @@ export class OrderItem {
   product_id!: string;
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'order_id' })
   order!: Order;
 
   @ManyToOne(() => Product, (product) => product.order_items, {
     onDelete: 'RESTRICT',
   })
+  @JoinColumn({ name: 'product_id' })
   product!: Product;
 
   @Column({ type: 'int' })

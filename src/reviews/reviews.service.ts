@@ -159,6 +159,24 @@ export class ReviewsService {
     return reviews.map((review) => this.sanitizeReview(review));
   }
 
+  /**
+   * Danh gia tot nhat de hien thi cong khai o trang chu.
+   * Chi lay review khong bi an, tu 4 sao tro len va co noi dung.
+   */
+  async findFeatured(limit = 6): Promise<ReviewResponse[]> {
+    const reviews = await this.reviewRepository.find({
+      where: { is_hidden: false },
+      order: { created_at: 'DESC' },
+      relations: { user: true, product: true },
+      take: 60,
+    });
+
+    return reviews
+      .filter((review) => review.rating >= 4 && review.comment?.trim())
+      .slice(0, limit)
+      .map((review) => this.sanitizeReview(review));
+  }
+
   async updateVisibility(
     id: string,
     isHidden: boolean,

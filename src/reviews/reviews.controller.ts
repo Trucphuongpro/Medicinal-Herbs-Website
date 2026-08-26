@@ -44,6 +44,12 @@ export class ReviewsController {
 
   @ApiOperation({ summary: 'Danh sách review của một sản phẩm' })
   @ApiParam({ name: 'productId', description: 'UUID của sản phẩm' })
+  @ApiOperation({ summary: 'Danh gia noi bat hien o trang chu (cong khai)' })
+  @Get('featured')
+  findFeatured() {
+    return this.reviewsService.findFeatured();
+  }
+
   @Get('product/:productId')
   findByProduct(@Param('productId', new ParseUUIDPipe()) productId: string) {
     return this.reviewsService.findByProduct(productId);
