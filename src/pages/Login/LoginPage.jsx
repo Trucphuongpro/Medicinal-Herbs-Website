@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import authService from '../../services/auth.service';
-import { setAccessToken, setStoredUser } from '../../utils/token';
+import { isAdminUser, setAccessToken, setStoredUser } from '../../utils/token';
 import styles from './LoginPage.module.css';
 
 function LoginPage() {
@@ -36,7 +36,8 @@ function LoginPage() {
       const currentUser = await authService.getMe();
       setStoredUser(currentUser);
 
-      navigate('/');
+      // Tai khoan admin vao thang khu quan tri, tai khoan thuong ve trang chu.
+      navigate(isAdminUser() ? '/admin' : '/');
     } catch (err) {
       setError(err.response?.data?.message || 'Đăng nhập thất bại.');
     } finally {
