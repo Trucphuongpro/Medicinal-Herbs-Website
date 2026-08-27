@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { FiShoppingCart, FiUser } from 'react-icons/fi';
-import { FaLeaf } from 'react-icons/fa';
 import SearchBar from '../../common/SearchBar';
+import BrandMark from '../../common/BrandMark';
 import { APP_NAME } from '../../../config';
 import styles from './Header.module.css';
 
@@ -10,7 +10,7 @@ function Header() {
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
         <Link to="/" className={styles.logo}>
-          <FaLeaf size={24} aria-hidden="true" />
+          <BrandMark size={32} />
           {APP_NAME}
         </Link>
 

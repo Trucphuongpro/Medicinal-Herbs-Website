@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import BrandMark from '../../common/BrandMark';
 import { APP_NAME } from '../../../config';
 import styles from './Footer.module.css';
 
@@ -10,7 +11,10 @@ function Footer() {
       <div className="container">
         <div className={styles.grid}>
           <div>
-            <h3 className={styles.sectionTitle}>{APP_NAME}</h3>
+            <h3 className={`${styles.sectionTitle} ${styles.brand}`}>
+              <BrandMark size={26} />
+              {APP_NAME}
+            </h3>
             <p className={styles.text}>
               Chuyên cung cấp dược liệu thiên nhiên chất lượng cao, an toàn và uy tín.
             </p>

@@ -12,6 +12,12 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .sectionTitle {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
