@@ -31,7 +31,7 @@ export class AuthService {
       role: UserRole.USER,
     });
 
-    return { user };
+    return { user: this.usersService.sanitizeUser(user) };
   }
 
   async login(loginDto: LoginDto) {
@@ -62,6 +62,7 @@ export class AuthService {
       throw new BadRequestException('userId is undefined');
     }
 
-    return this.usersService.findById(userId);
+    const user = await this.usersService.findById(userId);
+    return this.usersService.sanitizeUser(user);
   }
 }
