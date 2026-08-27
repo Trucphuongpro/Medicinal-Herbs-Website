@@ -9,8 +9,16 @@ import { SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+
+  // FRONTEND_ORIGIN: danh sach domain duoc phep goi API, cach nhau dau phay.
+  // Khong khai bao (may local) thi cho moi origin de tien phat trien.
+  const allowedOrigins = (process.env.FRONTEND_ORIGIN ?? '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
   app.enableCors({
-    origin: true,
+    origin: allowedOrigins.length > 0 ? allowedOrigins : true,
     credentials: true,
   });
 

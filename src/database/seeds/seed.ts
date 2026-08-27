@@ -49,6 +49,16 @@ const now = Date.now();
 const daysAgo = (d: number) => new Date(now - d * DAY);
 
 async function main() {
+  // Script nay TRUNCATE 8 bang. Tren production phai co --force de tranh
+  // xoa nham du lieu khach hang.
+  if (process.env.NODE_ENV === 'production' && !process.argv.includes('--force')) {
+    console.error(
+      'Tu choi chay: NODE_ENV=production. Script se XOA sach du lieu 8 bang.\n' +
+        'Neu chac chan (vi du seed lan dau cho DB trong), chay lai voi: npm run seed -- --force',
+    );
+    process.exit(1);
+  }
+
   await dataSource.initialize();
   console.log(`Ket noi DB ${process.env.DB_NAME}@${process.env.DB_HOST}:${process.env.DB_PORT}`);
 
