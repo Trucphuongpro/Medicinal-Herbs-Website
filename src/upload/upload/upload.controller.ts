@@ -2,18 +2,26 @@ import {
   Controller,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiOperation,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import type {} from 'multer';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth/jwt-auth.guard';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
+import { Roles } from '../../auth/decorator/roles.decorator';
+import { UserRole } from '../../users/enum/enum.userrole';
 import { UploadService } from './upload.service';
 
 @ApiTags('Upload')
@@ -21,6 +29,11 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiUnauthorizedResponse({ description: 'Chua dang nhap' })
+  @ApiForbiddenResponse({ description: 'Khong phai admin' })
   @Post('image')
   @ApiOperation({ summary: 'Upload anh len Cloudinary' })
   @ApiConsumes('multipart/form-data')

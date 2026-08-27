@@ -7,16 +7,24 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles/roles.guard';
+import { Roles } from '../auth/decorator/roles.decorator';
+import { UserRole } from '../users/enum/enum.userrole';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -27,6 +35,11 @@ import { Product } from './entities/product.entity';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiUnauthorizedResponse({ description: 'Chua dang nhap' })
+  @ApiForbiddenResponse({ description: 'Khong phai admin' })
   @Post()
   @ApiOperation({ summary: 'Tao product moi' })
   @ApiCreatedResponse({
@@ -65,6 +78,11 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiUnauthorizedResponse({ description: 'Chua dang nhap' })
+  @ApiForbiddenResponse({ description: 'Khong phai admin' })
   @Patch(':id')
   @ApiOperation({ summary: 'Cap nhat product' })
   @ApiParam({ name: 'id', description: 'UUID cua product' })
@@ -83,6 +101,11 @@ export class ProductsController {
     return this.productsService.update(id, updateProductDto);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiUnauthorizedResponse({ description: 'Chua dang nhap' })
+  @ApiForbiddenResponse({ description: 'Khong phai admin' })
   @Delete(':id')
   @ApiOperation({ summary: 'Xoa product' })
   @ApiParam({ name: 'id', description: 'UUID cua product' })
