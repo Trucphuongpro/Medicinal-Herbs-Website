@@ -5,6 +5,37 @@
     linear-gradient(180deg, #fbfaf3 0%, #ffffff 75%);
 }
 
+/* Anh bia Mang Den dat tren cung. Giu ty le goc 3:2 nhung chan chieu cao
+   tren man hinh rong de no khong chiem tron man hinh dau tien. */
+.cover {
+  position: relative;
+  margin: 0 0 2.5rem;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(44, 85, 48, 0.12);
+  box-shadow: 0 22px 46px rgba(24, 54, 28, 0.14);
+}
+
+.coverImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 30rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 640px) {
+  .cover {
+    margin-bottom: 1.75rem;
+    border-radius: 1.25rem;
+  }
+
+  .coverImage {
+    max-height: 15rem;
+  }
+}
+
 .inner {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);

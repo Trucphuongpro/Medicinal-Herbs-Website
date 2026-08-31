@@ -3,6 +3,19 @@ import styles from './AboutBanner.module.css';
 function AboutBanner() {
   return (
     <section className={styles.banner}>
+      <div className="container">
+        <figure className={styles.cover}>
+          <img
+            src="/images/banner-mangden.jpg"
+            alt="Dược liệu Măng Đen: sâm, nấm linh chi, kỷ tử và táo đỏ bày trên bàn gỗ, phía sau là rừng thông Kon Tum lúc bình minh"
+            className={styles.coverImage}
+            width="1536"
+            height="1024"
+            loading="eager"
+          />
+        </figure>
+      </div>
+
       <div className={`container ${styles.inner}`}>
         <div className={styles.content}>
           <span className={styles.badge}>Về thương hiệu</span>
