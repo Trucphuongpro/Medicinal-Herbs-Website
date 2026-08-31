@@ -93,7 +93,7 @@ function ShopPage() {
           return new Date(productB.createdAt) - new Date(productA.createdAt);
       }
     });
-  }, [selectedCategory, selectedPrice, selectedRating, selectedStatus, sortBy]);
+  }, [products, selectedCategory, selectedPrice, selectedRating, selectedStatus, sortBy]);
 
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
