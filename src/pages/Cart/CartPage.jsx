@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
+import LoginPrompt from '../../components/common/LoginPrompt';
+import { isAuthenticated } from '../../utils/token';
 import cartService from '../../services/cart.service';
 import { mapCartItem } from '../../utils/apiMappers';
 import {
@@ -16,6 +18,7 @@ import styles from './CartPage.module.css';
 
 function CartPage() {
   const navigate = useNavigate();
+  const loggedIn = isAuthenticated();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -37,8 +40,14 @@ function CartPage() {
   };
 
   useEffect(() => {
+    // Chua dang nhap thi khong goi API, de man hinh moi dang nhap hien ra.
+    if (!loggedIn) {
+      setLoading(false);
+      return;
+    }
+
     loadCart();
-  }, []);
+  }, [loggedIn]);
 
   const subtotal = useMemo(
     () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0),
@@ -93,6 +102,10 @@ function CartPage() {
 
     setAppliedVoucher(matchedVoucher);
   };
+
+  if (!loggedIn) {
+    return <LoginPrompt />;
+  }
 
   if (loading) {
     return <Loading fullScreen text="Đang tải giỏ hàng..." />;

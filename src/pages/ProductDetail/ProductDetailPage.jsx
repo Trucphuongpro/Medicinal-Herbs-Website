@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AuthRequiredDialog from '../../components/common/AuthRequiredDialog';
 import EmptyState from '../../components/common/EmptyState';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
+import { isAuthenticated } from '../../utils/token';
 import cartService from '../../services/cart.service';
 import productService from '../../services/product.service';
 import reviewService from '../../services/review.service';
@@ -28,6 +30,7 @@ function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [cartError, setCartError] = useState('');
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -79,7 +82,14 @@ function ProductDetailPage() {
   };
 
   const handleAddToCart = async () => {
-    if (!product) return;
+    if (!product) return false;
+
+    // Khach chua dang nhap thi moi dang nhap, khong de API tra ve loi 401.
+    if (!isAuthenticated()) {
+      setCartError('');
+      setShowAuthDialog(true);
+      return false;
+    }
 
     try {
       setIsAddingToCart(true);
@@ -137,6 +147,7 @@ function ProductDetailPage() {
 
   return (
     <section className={`page-section ${styles.page}`}>
+      <AuthRequiredDialog open={showAuthDialog} onClose={() => setShowAuthDialog(false)} />
       <div className="container">
         <ProductDetailBreadcrumb productName={product.name} />
 

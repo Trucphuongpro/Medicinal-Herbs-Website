@@ -30,11 +30,17 @@ axiosClient.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    if (status === 401) {
+    // Chi xu ly khi nguoi dung TUNG co token, nghia la phien da het han.
+    // Khach chua dang nhap cung nhan 401, nhung do la truong hop binh thuong
+    // va tung man hinh tu moi ho dang nhap - khong duoc da ho di dau ca.
+    if (status === 401 && getAccessToken()) {
       clearTokens();
 
       if (window.location.pathname !== ROUTES.LOGIN) {
-        window.location.href = ROUTES.LOGIN;
+        const redirectTo = `${ROUTES.LOGIN}?expired=1&from=${encodeURIComponent(
+          window.location.pathname,
+        )}`;
+        window.location.replace(redirectTo);
       }
     }
 

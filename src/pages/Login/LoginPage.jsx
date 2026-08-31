@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
@@ -9,6 +9,13 @@ import styles from './LoginPage.module.css';
 
 function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  // Trang truoc do khach dang xem, de dang nhap xong dua ho quay lai dung cho.
+  const redirectTo = location.state?.from || searchParams.get('from') || '';
+  const sessionExpired = searchParams.get('expired') === '1';
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -36,8 +43,13 @@ function LoginPage() {
       const currentUser = await authService.getMe();
       setStoredUser(currentUser);
 
-      // Tai khoan admin vao thang khu quan tri, tai khoan thuong ve trang chu.
-      navigate(isAdminUser() ? '/admin' : '/');
+      // Uu tien dua khach ve trang ho dang xem truoc do. Khong co thi admin
+      // vao khu quan tri, tai khoan thuong ve trang chu.
+      if (redirectTo && redirectTo !== '/login') {
+        navigate(redirectTo, { replace: true });
+      } else {
+        navigate(isAdminUser() ? '/admin' : '/', { replace: true });
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Đăng nhập thất bại.');
     } finally {
@@ -54,6 +66,18 @@ function LoginPage() {
           Tiếp tục mua sắm, theo dõi đơn hàng và lưu lại các sản phẩm dược liệu bạn quan tâm.
         </p>
       </div>
+
+      {sessionExpired ? (
+        <p className={styles.notice} role="status">
+          Phiên đăng nhập đã hết hạn. Bạn đăng nhập lại để tiếp tục nhé.
+        </p>
+      ) : null}
+
+      {redirectTo && !sessionExpired ? (
+        <p className={styles.notice} role="status">
+          Đăng nhập xong bạn sẽ được đưa về đúng trang đang xem.
+        </p>
+      ) : null}
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <Input

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
+import LoginPrompt from '../../components/common/LoginPrompt';
+import { isAuthenticated } from '../../utils/token';
 import cartService from '../../services/cart.service';
 import orderService from '../../services/order.service';
 import paymentService from '../../services/payment.service';
@@ -22,6 +24,7 @@ import styles from './CheckoutPage.module.css';
 
 function CheckoutPage() {
   const navigate = useNavigate();
+  const loggedIn = isAuthenticated();
   const [cartItems, setCartItems] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +36,12 @@ function CheckoutPage() {
   const [appliedVoucher, setAppliedVoucher] = useState(null);
 
   useEffect(() => {
+    // Chua dang nhap thi khong goi API, de man hinh moi dang nhap hien ra.
+    if (!loggedIn) {
+      setLoading(false);
+      return;
+    }
+
     const loadCheckoutData = async () => {
       try {
         setLoading(true);
@@ -60,7 +69,7 @@ function CheckoutPage() {
     };
 
     loadCheckoutData();
-  }, []);
+  }, [loggedIn]);
 
   const subtotal = useMemo(
     () => cartItems.reduce((total, product) => total + product.price * product.quantity, 0),
@@ -111,6 +120,15 @@ function CheckoutPage() {
       setSubmitting(false);
     }
   };
+
+  if (!loggedIn) {
+    return (
+      <LoginPrompt
+        title="Đăng nhập để đặt hàng"
+        description="Đơn hàng cần gắn với tài khoản để bạn theo dõi được trạng thái giao hàng."
+      />
+    );
+  }
 
   if (loading) {
     return <Loading fullScreen text="Đang tải trang thanh toán..." />;
