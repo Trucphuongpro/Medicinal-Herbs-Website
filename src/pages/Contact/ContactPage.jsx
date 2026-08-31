@@ -1,11 +1,11 @@
-import { ContactCompanyInfo, ContactFormSection, ContactMapPlaceholder } from './components';
+import { ContactCompanyInfo, ContactFormSection, ContactMap } from './components';
 
 function ContactPage() {
   return (
     <>
       <ContactFormSection />
       <ContactCompanyInfo />
-      <ContactMapPlaceholder />
+      <ContactMap />
     </>
   );
 }
