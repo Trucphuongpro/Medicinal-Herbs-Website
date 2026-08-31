@@ -1,127 +1,105 @@
 .banner {
-  padding: 4rem 0 3rem;
+  padding: 2.5rem 0 3rem;
   background:
     radial-gradient(circle at top left, rgba(226, 234, 210, 0.95), transparent 42%),
     linear-gradient(180deg, #fbfaf3 0%, #ffffff 75%);
 }
 
-/* Anh bia Mang Den dat tren cung. Giu ty le goc 3:2 nhung chan chieu cao
-   tren man hinh rong de no khong chiem tron man hinh dau tien. */
 .cover {
   position: relative;
-  margin: 0 0 2.5rem;
   overflow: hidden;
   border-radius: 1.75rem;
   border: 1px solid rgba(44, 85, 48, 0.12);
   box-shadow: 0 22px 46px rgba(24, 54, 28, 0.14);
 }
 
+/* Neo anh o mep tren de dong chu "DUOC LIEU MANG DEN" in san trong anh
+   khong bao gio bi xen khi khung bi chan chieu cao. */
 .coverImage {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 30rem;
+  max-height: 34rem;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
 }
 
-@media (max-width: 640px) {
-  .cover {
-    margin-bottom: 1.75rem;
-    border-radius: 1.25rem;
-  }
-
-  .coverImage {
-    max-height: 15rem;
-  }
-}
-
-.inner {
+/* Lop phu toi dan tu duoi len, du dam de chu trang doc duoc tren anh
+   nhieu chi tiet, nhung van thay ro phong canh phia tren. */
+.overlay {
+  position: absolute;
+  inset: auto 0 0 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.content {
-  display: grid;
-  gap: 1rem;
+  gap: 0.7rem;
+  padding: 6rem 2.5rem 2.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 38, 20, 0) 0%,
+    rgba(18, 38, 20, 0.55) 45%,
+    rgba(15, 32, 17, 0.88) 100%
+  );
+  color: #ffffff;
 }
 
 .badge {
   display: inline-flex;
   width: fit-content;
-  padding: 0.45rem 0.8rem;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--color-primary-dark);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(3px);
+  color: #ffffff;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
 }
 
 .title {
-  color: var(--color-primary-dark);
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  max-width: 12ch;
+  max-width: 22ch;
+  font-size: clamp(1.7rem, 3.4vw, 2.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
 }
 
 .description {
-  max-width: 38rem;
-  color: #4b5563;
-  line-height: 1.8;
-}
-
-.visualCard {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  border-radius: 1.75rem;
-  min-height: 22rem;
-  box-shadow: 0 24px 44px rgba(24, 54, 28, 0.16);
-}
-
-.visualImage {
-  width: 100%;
-  height: 100%;
-  min-height: 22rem;
-  object-fit: cover;
-}
-
-/* Lop phu toi dan tu duoi len de chu doc duoc tren moi tam anh. */
-.visualCaption {
-  position: absolute;
-  inset: auto 0 0 0;
-  display: grid;
-  gap: 0.5rem;
-  padding: 3.5rem 1.6rem 1.6rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(15, 46, 34, 0.88) 62%);
-  color: #ffffff;
-}
-
-.visualCaption strong {
-  font-size: 1.5rem;
-}
-
-.visualCaption p {
-  color: rgba(255, 255, 255, 0.88);
+  max-width: 46rem;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
-  font-size: var(--font-size-sm);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 900px) {
-  .inner {
-    grid-template-columns: 1fr;
+  .overlay {
+    padding: 5rem 1.5rem 1.75rem;
+  }
+}
+
+/* Tren dien thoai khong de chu de len anh nua: khung qua hep, chu se che
+   het canh va van kho doc. Tach ra xep doc cho chac an. */
+@media (max-width: 640px) {
+  .cover {
+    border-radius: 1.25rem;
+  }
+
+  .coverImage {
+    max-height: 16rem;
+  }
+
+  .overlay {
+    position: static;
+    padding: 1.5rem 1.25rem 1.75rem;
+    background: var(--color-primary-dark);
   }
 
   .title {
     max-width: none;
+    font-size: 1.6rem;
+    text-shadow: none;
   }
-}
 
-@media (max-width: 640px) {
-  .banner {
-    padding: 3rem 0 2.5rem;
+  .description {
+    text-shadow: none;
   }
 }

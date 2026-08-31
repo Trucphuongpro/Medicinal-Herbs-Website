@@ -4,7 +4,7 @@ function AboutBanner() {
   return (
     <section className={styles.banner}>
       <div className="container">
-        <figure className={styles.cover}>
+        <div className={styles.cover}>
           <img
             src="/images/banner-mangden.jpg"
             alt="Dược liệu Măng Đen: sâm, nấm linh chi, kỷ tử và táo đỏ bày trên bàn gỗ, phía sau là rừng thông Kon Tum lúc bình minh"
@@ -13,30 +13,18 @@ function AboutBanner() {
             height="1024"
             loading="eager"
           />
-        </figure>
-      </div>
 
-      <div className={`container ${styles.inner}`}>
-        <div className={styles.content}>
-          <span className={styles.badge}>Về thương hiệu</span>
-          <h1 className={styles.title}>Chúng tôi xây dựng một trải nghiệm mua dược liệu rõ ràng, nhẹ mắt và đáng tin.</h1>
-          <p className={styles.description}>
-            Từ vùng trồng đến lúc gói hàng, mỗi bước đều được ghi lại rõ ràng để bạn biết mình
-            đang dùng gì và dùng thế nào.
-          </p>
+          <div className={styles.overlay}>
+            <span className={styles.badge}>Về thương hiệu</span>
+            <h1 className={styles.title}>
+              Dược liệu Măng Đen, từ vùng trồng đến tay bạn.
+            </h1>
+            <p className={styles.description}>
+              Thu hái theo mùa, sơ chế thủ công, ghi rõ nguồn gốc trên từng bao bì. Mỗi bước đều
+              được ghi lại để bạn biết mình đang dùng gì và dùng thế nào.
+            </p>
+          </div>
         </div>
-
-        <figure className={styles.visualCard}>
-          <img
-            src="/images/products/tinh-dau-sa-chanh.jpg"
-            alt="Bụi sả chanh đang phát triển trong vườn dược liệu"
-            className={styles.visualImage}
-          />
-          <figcaption className={styles.visualCaption}>
-            <strong>Dược liệu thiên nhiên</strong>
-            <p>Thu hái theo mùa, sơ chế thủ công và ghi rõ nguồn gốc trên từng bao bì.</p>
-          </figcaption>
-        </figure>
       </div>
     </section>
   );
