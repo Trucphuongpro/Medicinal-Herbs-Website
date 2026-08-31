@@ -9,7 +9,7 @@
 }
 
 .filled {
-  color: #f59e0b;
+  color: var(--color-honey);
 }
 
 .count {

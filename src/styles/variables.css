@@ -6,6 +6,16 @@
   --color-secondary: #d8f3dc;
   --color-accent: #b7e4c7;
 
+  /* Mau bo tro. Phan vai: xanh cho thuong hieu va hanh dong, vang mat ong
+     cho gia tri va diem nhan, nau gom cho chi tiet trang tri. */
+  --color-honey: #c8862a;
+  --color-honey-dark: #a86d1c;
+  --color-honey-light: #eab765;
+  --color-honey-soft: #f7ebd6;
+
+  --color-clay: #a9573a;
+  --color-clay-soft: #f5e4dc;
+
   --color-text: #1a1a1a;
   --color-text-muted: #6b7280;
   --color-text-inverse: #ffffff;
@@ -13,6 +23,9 @@
   --color-bg: #ffffff;
   --color-bg-muted: #f9fafb;
   --color-bg-dark: #111827;
+  /* Nen kem am, dung xen ke voi nen trang de trang bot lanh. */
+  --color-bg-warm: #fdfaf3;
+  --color-bg-warm-deep: #f9f2e6;
 
   --color-border: #e5e7eb;
   --color-error: #dc2626;

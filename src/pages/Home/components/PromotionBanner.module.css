@@ -76,6 +76,7 @@
 
 .offerBox strong {
   font-size: 1.6rem;
+  color: var(--color-honey-light);
 }
 
 .offerBox span {

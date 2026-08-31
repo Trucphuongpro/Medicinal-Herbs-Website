@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   padding: 5rem 0;
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdf9 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg-warm) 100%);
 }
 
 /* Canh la o goc duoi ben phai, khep lai phan cuoi trang. */

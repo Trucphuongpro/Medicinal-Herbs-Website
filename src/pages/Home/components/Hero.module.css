@@ -238,7 +238,7 @@
 
 .statItem strong {
   font-size: 1.6rem;
-  color: #ffffff;
+  color: var(--color-honey-light);
 }
 
 .statItem span {
