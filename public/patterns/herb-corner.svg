@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" stroke="#2d6a4f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Canh chinh vuot cheo tu goc -->
+  <path d="M8 8C46 30 78 62 100 100c22 38 34 78 38 124" />
+  <!-- Nhanh phu -->
+  <path d="M40 26c22 6 40 20 52 40" />
+  <path d="M26 40c6 22 20 40 40 52" />
+  <path d="M96 92c20 10 34 26 42 48" />
+  <path d="M92 96c10 20 26 34 48 42" />
+
+  <!-- La tren canh chinh -->
+  <path d="M52 34c12-14 30-18 46-10-6 16-20 26-36 24-5-1-8-6-10-14z" />
+  <path d="M34 52c-14 12-18 30-10 46 16-6 26-20 24-36-1-5-6-8-14-10z" />
+  <path d="M112 106c14-10 32-10 46 2-10 14-28 18-44 10-4-2-5-7-2-12z" />
+  <path d="M106 112c-10 14-10 32 2 46 14-10 18-28 10-44-2-4-7-5-12-2z" />
+  <path d="M146 176c16-6 33-1 44 13-14 10-32 9-44-4-3-3-3-7 0-9z" />
+
+  <!-- Qua nho -->
+  <circle cx="78" cy="70" r="4.5" />
+  <circle cx="130" cy="140" r="4" />
+  <circle cx="160" cy="200" r="3.5" />
+</svg>

@@ -3,15 +3,36 @@
 }
 
 .banner {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
   gap: 1.5rem;
   padding: 2rem;
   border-radius: 2rem;
+  overflow: hidden;
   background:
     radial-gradient(circle at top right, rgba(183, 228, 199, 0.45), transparent 28%),
     linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #40916c 100%);
   color: #ffffff;
+}
+
+/* Hoa van lat nguoc, sang mau de noi tren nen xanh dam. */
+.banner::before {
+  content: '';
+  position: absolute;
+  top: -3rem;
+  left: -3rem;
+  width: 20rem;
+  height: 20rem;
+  background: url('/patterns/herb-corner.svg') no-repeat center / contain;
+  opacity: 0.16;
+  filter: brightness(0) invert(1);
+  pointer-events: none;
+}
+
+.content,
+.side {
+  position: relative;
 }
 
 .content {

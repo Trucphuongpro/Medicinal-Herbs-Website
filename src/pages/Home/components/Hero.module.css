@@ -18,6 +18,40 @@
   filter: blur(10px);
 }
 
+/* Hoa van canh la o hai goc tren, lat nguoc nhau cho doi xung. */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  left: -2rem;
+  width: 17rem;
+  height: 17rem;
+  background: url('/patterns/herb-corner.svg') no-repeat center / contain;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.ornamentRight {
+  position: absolute;
+  top: -1.5rem;
+  right: -2rem;
+  width: 17rem;
+  height: 17rem;
+  background: url('/patterns/herb-corner.svg') no-repeat center / contain;
+  opacity: 0.12;
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero::before,
+  .ornamentRight {
+    width: 11rem;
+    height: 11rem;
+    opacity: 0.09;
+  }
+}
+
 .inner {
   display: grid;
   gap: 2.5rem;

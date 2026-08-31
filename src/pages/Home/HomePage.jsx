@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
+import SectionDivider from '../../components/common/SectionDivider';
 import categoryService from '../../services/category.service';
 import productService from '../../services/product.service';
 import { mapCategoryToCard, mapProductToCard } from '../../utils/apiMappers';
@@ -60,9 +61,11 @@ function HomePage() {
     <>
       <Hero />
       <FeaturedProducts products={products.slice(0, 4)} />
+      <SectionDivider />
       <BestSellerSection products={products.slice(4, 8).length ? products.slice(4, 8) : products.slice(0, 4)} />
       <PromotionBanner />
       <AboutSection productCount={products.length} categoryCount={categories.length} />
+      <SectionDivider />
       <Testimonials />
     </>
   );

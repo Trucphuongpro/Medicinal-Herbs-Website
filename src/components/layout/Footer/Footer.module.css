@@ -1,8 +1,29 @@
 .footer {
+  position: relative;
+  overflow: hidden;
   margin-top: auto;
   background-color: var(--color-primary-dark);
   color: var(--color-text-inverse);
   padding: var(--spacing-2xl) 0 var(--spacing-lg);
+}
+
+/* Hoa van sang mau o goc phai, cung ngon ngu voi dai khuyen mai. */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  right: -3rem;
+  width: 19rem;
+  height: 19rem;
+  background: url('/patterns/herb-corner.svg') no-repeat center / contain;
+  opacity: 0.1;
+  filter: brightness(0) invert(1);
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+
+.footer > * {
+  position: relative;
 }
 
 .grid {

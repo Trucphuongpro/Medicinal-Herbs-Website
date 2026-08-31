@@ -1,6 +1,26 @@
 .section {
+  position: relative;
+  overflow: hidden;
   padding: 5rem 0;
   background: linear-gradient(180deg, #ffffff 0%, #fbfdf9 100%);
+}
+
+/* Canh la o goc duoi ben phai, khep lai phan cuoi trang. */
+.section::before {
+  content: '';
+  position: absolute;
+  right: -3rem;
+  bottom: -4rem;
+  width: 18rem;
+  height: 18rem;
+  background: url('/patterns/herb-corner.svg') no-repeat center / contain;
+  opacity: 0.1;
+  transform: scale(-1);
+  pointer-events: none;
+}
+
+.section > * {
+  position: relative;
 }
 
 .grid {

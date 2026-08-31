@@ -5,6 +5,7 @@ import styles from './Hero.module.css';
 function Hero() {
   return (
     <section className={styles.hero}>
+      <span className={styles.ornamentRight} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>
         <div className={styles.content}>
           <span className={styles.badge}>Dược liệu tinh chọn cho nhịp sống hiện đại</span>

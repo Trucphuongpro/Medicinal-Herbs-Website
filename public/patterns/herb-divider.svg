@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 40" fill="none" stroke="#2d6a4f" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Hai duong ngang thu dan ve giua -->
+  <path d="M0 20h108" opacity="0.55" />
+  <path d="M212 20h108" opacity="0.55" />
+
+  <!-- Cum la giua -->
+  <path d="M120 20h24" />
+  <path d="M176 20h24" />
+  <path d="M160 9v22" opacity="0.7" />
+  <path d="M160 12c9-6 20-5 27 3-9 6-20 5-27-3z" />
+  <path d="M160 12c-9-6-20-5-27 3 9 6 20 5 27-3z" />
+  <path d="M160 26c7-5 16-4 22 2-7 5-16 4-22-2z" />
+  <path d="M160 26c-7-5-16-4-22 2 7 5 16 4 22-2z" />
+  <circle cx="160" cy="20" r="2.6" />
+</svg>
