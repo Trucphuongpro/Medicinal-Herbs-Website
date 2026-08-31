@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import EmptyState from '../../components/common/EmptyState';
 import ErrorState from '../../components/common/ErrorState';
 import Loading from '../../components/common/Loading';
 import categoryService from '../../services/category.service';
@@ -8,7 +7,6 @@ import { mapCategoryToCard, mapProductToCard } from '../../utils/apiMappers';
 import {
   AboutSection,
   BestSellerSection,
-  CategoriesSection,
   FeaturedProducts,
   Hero,
   PromotionBanner,
@@ -61,18 +59,6 @@ function HomePage() {
   return (
     <>
       <Hero />
-      {categories.length ? (
-        <CategoriesSection categories={categories} />
-      ) : (
-        <section className="page-section">
-          <div className="container">
-            <EmptyState
-              title="Chưa có danh mục"
-              description="Danh mục sẽ hiển thị ở đây khi cửa hàng cập nhật."
-            />
-          </div>
-        </section>
-      )}
       <FeaturedProducts products={products.slice(0, 4)} />
       <BestSellerSection products={products.slice(4, 8).length ? products.slice(4, 8) : products.slice(0, 4)} />
       <PromotionBanner />
