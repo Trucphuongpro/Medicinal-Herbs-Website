@@ -1,79 +1,120 @@
 .section {
-  padding: 5rem 0;
-  background: linear-gradient(180deg, #fbfaf4 0%, #f4fbf5 100%);
+  padding: 4rem 0 4.5rem;
+  background: var(--color-bg);
+}
+
+.header {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  color: var(--color-primary-dark);
+  letter-spacing: -0.01em;
+}
+
+/* Vach nho duoi tieu de, thay cho cum la cho do nay khong can nang. */
+.rule {
+  width: 5rem;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, transparent, var(--color-honey), transparent);
 }
 
 .grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.card {
+/* Duong dut noi bon buoc, ve o nen phia sau cac the. */
+.grid::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  left: 12%;
+  right: 12%;
+  border-top: 2px dashed rgba(44, 85, 48, 0.22);
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 0.8rem;
-  padding: 0 0 1.4rem;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid rgba(44, 85, 48, 0.08);
+  gap: 0.6rem;
+  align-content: start;
 }
 
 .thumb {
   position: relative;
-  height: 9.5rem;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 26px rgba(24, 54, 28, 0.1);
 }
 
 .thumbImage {
+  display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
 }
 
-/* So thu tu dat de len anh de moi the co mot diem mau. */
 .number {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.1rem;
+  top: 0.7rem;
+  left: 0.7rem;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
   height: 2.1rem;
   border-radius: var(--radius-full);
+  border: 2px solid #ffffff;
   background: var(--color-primary-dark);
-  color: #ffffff;
-  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.stepTitle {
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-}
-
-.card h3,
-.card p {
-  padding: 0 1.4rem;
-}
-
-.card h3 {
   color: var(--color-primary-dark);
-  font-size: 1.1rem;
 }
 
-.card p {
+.stepText {
   color: var(--color-text-muted);
-  line-height: 1.75;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .grid::before {
+    display: none;
+  }
 }
 
-@media (max-width: 640px) {
-  .section {
-    padding: 4rem 0;
-  }
-
+@media (max-width: 560px) {
   .grid {
     grid-template-columns: 1fr;
   }

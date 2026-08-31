@@ -4,6 +4,7 @@ import productService from '../../services/product.service';
 import {
   AboutBanner,
   AboutCertificationSection,
+  AboutClosingCta,
   AboutGalleryStrip,
   AboutIntroSection,
   AboutProcessSection,
@@ -41,6 +42,7 @@ function AboutPage() {
       <AboutGalleryStrip />
       <AboutValuesSection />
       <AboutCertificationSection />
+      <AboutClosingCta />
     </>
   );
 }
