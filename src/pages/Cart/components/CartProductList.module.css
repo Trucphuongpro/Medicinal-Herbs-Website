@@ -9,7 +9,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1.1rem 1.25rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
   border-radius: 1.25rem;
   background: #ffffff;
 }
@@ -34,9 +34,9 @@
   grid-template-columns: 9rem minmax(0, 1fr);
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
   border-radius: 1.5rem;
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdf9 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfaf4 100%);
 }
 
 .imageWrap {
@@ -67,7 +67,7 @@
   width: fit-content;
   padding: 0.35rem 0.7rem;
   border-radius: var(--radius-full);
-  background: rgba(216, 243, 220, 0.78);
+  background: rgba(226, 234, 210, 0.78);
   color: var(--color-primary-dark);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
@@ -105,7 +105,7 @@
 .quantityButton {
   width: 2.6rem;
   height: 2.6rem;
-  border: 1px solid rgba(45, 106, 79, 0.14);
+  border: 1px solid rgba(44, 85, 48, 0.14);
   border-radius: 0.9rem;
   background: #ffffff;
   color: var(--color-primary-dark);
@@ -117,7 +117,7 @@
   width: 4.5rem;
   height: 2.6rem;
   padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(45, 106, 79, 0.14);
+  border: 1px solid rgba(44, 85, 48, 0.14);
   border-radius: 0.9rem;
   text-align: center;
   color: var(--color-primary-dark);
@@ -151,9 +151,9 @@
   display: grid;
   gap: 0.75rem;
   padding: 3rem 1.5rem;
-  border: 1px dashed rgba(45, 106, 79, 0.2);
+  border: 1px dashed rgba(44, 85, 48, 0.2);
   border-radius: 1.5rem;
-  background: #fbfdf9;
+  background: #fbfaf4;
   text-align: center;
 }
 

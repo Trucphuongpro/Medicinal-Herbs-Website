@@ -11,8 +11,8 @@
   border-radius: 2rem;
   overflow: hidden;
   background:
-    radial-gradient(circle at top right, rgba(183, 228, 199, 0.45), transparent 28%),
-    linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #40916c 100%);
+    radial-gradient(circle at top right, rgba(196, 214, 168, 0.45), transparent 28%),
+    linear-gradient(135deg, #1e3d22 0%, #2c5530 55%, #4a7a3f 100%);
   color: #ffffff;
 }
 

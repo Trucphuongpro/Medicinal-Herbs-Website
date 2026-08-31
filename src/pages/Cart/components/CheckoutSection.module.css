@@ -2,7 +2,7 @@
   display: grid;
   gap: 0.75rem;
   padding: 1.25rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
   border-radius: 1.5rem;
   background: #ffffff;
 }

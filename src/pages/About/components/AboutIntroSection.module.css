@@ -17,9 +17,9 @@
   display: grid;
   gap: 0.5rem;
   padding: 1.25rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
   border-radius: 1.5rem;
-  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #fbfaf4 0%, #ffffff 100%);
 }
 
 .statCard strong {
@@ -55,5 +55,5 @@
   height: 15rem;
   border-radius: 1.5rem;
   object-fit: cover;
-  box-shadow: 0 18px 34px rgba(20, 62, 46, 0.12);
+  box-shadow: 0 18px 34px rgba(24, 54, 28, 0.12);
 }

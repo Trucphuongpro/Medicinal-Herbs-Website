@@ -1,6 +1,6 @@
 .section {
   padding: 5rem 0;
-  background: linear-gradient(180deg, #fbfdf9 0%, #f4fbf5 100%);
+  background: linear-gradient(180deg, #fbfaf4 0%, #f4fbf5 100%);
 }
 
 .grid {
@@ -17,7 +17,7 @@
   border-radius: 1.5rem;
   overflow: hidden;
   background: #ffffff;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
 }
 
 .thumb {

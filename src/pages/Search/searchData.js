@@ -13,8 +13,8 @@ const createProductImage = ({ title, subtitle, background, foreground, accent })
       <path d="M246 106c60 18 114 70 114 146 0 72-52 122-130 122-72 0-122-46-122-116 0-84 76-140 138-152Z" fill="${foreground}" opacity="0.92" />
       <path d="M190 182c24-42 68-70 114-76-8 58-46 108-102 126-26 8-56 12-84 8 26-26 44-42 72-58Z" fill="#fff" opacity="0.84" />
       <rect x="42" y="338" width="210" height="78" rx="18" fill="rgba(255,255,255,0.86)" />
-      <text x="62" y="372" fill="#1b4332" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
-      <text x="62" y="398" fill="#2d6a4f" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
+      <text x="62" y="372" fill="#1e3d22" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
+      <text x="62" y="398" fill="#2c5530" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
     </svg>
   `;
 
@@ -42,9 +42,9 @@ export const mockSearchProducts = [
     image: createProductImage({
       title: 'Atiso Do',
       subtitle: 'Tra thao moc',
-      background: '#d8f3dc',
-      foreground: '#2d6a4f',
-      accent: '#95d5b2',
+      background: '#e2ead2',
+      foreground: '#2c5530',
+      accent: '#a8c48a',
     }),
   },
   {

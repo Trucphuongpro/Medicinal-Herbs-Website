@@ -1,10 +1,11 @@
 :root {
   /* Colors */
-  --color-primary: #2d6a4f;
-  --color-primary-dark: #1b4332;
-  --color-primary-light: #40916c;
-  --color-secondary: #d8f3dc;
-  --color-accent: #b7e4c7;
+  /* Bang mau rut tu anh Mang Den: rung thong, nang binh minh, go va dat. */
+  --color-primary: #2c5530;
+  --color-primary-dark: #1e3d22;
+  --color-primary-light: #4a7a3f;
+  --color-secondary: #e2ead2;
+  --color-accent: #c4d6a8;
 
   /* Mau bo tro. Phan vai: xanh cho thuong hieu va hanh dong, vang mat ong
      cho gia tri va diem nhan, nau gom cho chi tiet trang tri. */
@@ -15,6 +16,12 @@
 
   --color-clay: #a9573a;
   --color-clay-soft: #f5e4dc;
+
+  /* Nau go tu tho go va bien go, do ky tu tu qua trong anh. */
+  --color-wood: #8a5a34;
+  --color-wood-soft: #efe2d3;
+  --color-berry: #a8362a;
+  --color-berry-soft: #f6ded9;
 
   --color-text: #1a1a1a;
   --color-text-muted: #6b7280;

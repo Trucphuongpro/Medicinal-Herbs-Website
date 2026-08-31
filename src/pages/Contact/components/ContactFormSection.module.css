@@ -1,8 +1,8 @@
 .section {
   padding: 4rem 0 3rem;
   background:
-    radial-gradient(circle at top left, rgba(216, 243, 220, 0.9), transparent 40%),
-    linear-gradient(180deg, #f8fff8 0%, #ffffff 78%);
+    radial-gradient(circle at top left, rgba(226, 234, 210, 0.9), transparent 40%),
+    linear-gradient(180deg, #fbfaf3 0%, #ffffff 78%);
 }
 
 .layout {
@@ -24,7 +24,7 @@
   border-radius: 1.5rem;
   background:
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 35%),
-    linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%);
+    linear-gradient(135deg, #1e3d22 0%, #2c5530 60%, #4a7a3f 100%);
   color: #ffffff;
 }
 
@@ -37,7 +37,7 @@
   display: grid;
   gap: 1rem;
   padding: 1.5rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(44, 85, 48, 0.08);
   border-radius: 1.75rem;
   background: #ffffff;
 }

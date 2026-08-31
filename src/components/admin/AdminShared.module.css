@@ -33,7 +33,7 @@
   margin: 0;
   font-size: clamp(1.65rem, 2vw, 2.35rem);
   font-weight: 700;
-  color: #173329;
+  color: #162c17;
 }
 
 .pageSubtitle {
@@ -51,7 +51,7 @@
 
 .card {
   background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(183, 228, 199, 0.8);
+  border: 1px solid rgba(196, 214, 168, 0.8);
   border-radius: 1.25rem;
   box-shadow: 0 1.2rem 2.4rem rgba(17, 24, 39, 0.06);
   backdrop-filter: blur(10px);
@@ -74,7 +74,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1b4332;
+  color: #1e3d22;
 }
 
 .sectionDescription {
@@ -112,7 +112,7 @@
   margin: 0;
   font-size: 1.9rem;
   font-weight: 700;
-  color: #173329;
+  color: #162c17;
 }
 
 .statHint {
@@ -136,7 +136,7 @@
 }
 
 .tonePrimary {
-  background: rgba(45, 106, 79, 0.12);
+  background: rgba(44, 85, 48, 0.12);
   color: var(--color-primary);
 }
 
@@ -184,7 +184,7 @@
   padding: 0.85rem 1rem;
   border-radius: 999px;
   background: #fff;
-  border: 1px solid rgba(27, 67, 50, 0.1);
+  border: 1px solid rgba(30, 61, 34, 0.1);
 }
 
 .searchInput {
@@ -193,7 +193,7 @@
   outline: 0;
   background: transparent;
   font-size: 0.95rem;
-  color: #173329;
+  color: #162c17;
 }
 
 .searchIcon {
@@ -205,10 +205,10 @@
 .fieldTextarea,
 .uploadButton {
   width: 100%;
-  border: 1px solid rgba(27, 67, 50, 0.12);
+  border: 1px solid rgba(30, 61, 34, 0.12);
   border-radius: 0.95rem;
   background: #fff;
-  color: #173329;
+  color: #162c17;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -228,8 +228,8 @@
 .fieldInput:focus,
 .fieldTextarea:focus {
   outline: none;
-  border-color: rgba(45, 106, 79, 0.35);
-  box-shadow: 0 0 0 0.2rem rgba(45, 106, 79, 0.12);
+  border-color: rgba(44, 85, 48, 0.35);
+  box-shadow: 0 0 0 0.2rem rgba(44, 85, 48, 0.12);
 }
 
 .tableWrap {
@@ -259,7 +259,7 @@
 }
 
 .table tbody tr:hover {
-  background: rgba(216, 243, 220, 0.2);
+  background: rgba(226, 234, 210, 0.2);
 }
 
 .mobileCards {
@@ -288,7 +288,7 @@
 }
 
 .mobileValue {
-  color: #173329;
+  color: #162c17;
   font-size: 0.95rem;
 }
 
@@ -368,7 +368,7 @@
 }
 
 .actionPrimary {
-  background: rgba(45, 106, 79, 0.12);
+  background: rgba(44, 85, 48, 0.12);
   color: var(--color-primary);
 }
 
@@ -409,7 +409,7 @@
 .dialogTitle {
   margin: 0;
   font-size: 1.25rem;
-  color: #173329;
+  color: #162c17;
 }
 
 .dialogText {
@@ -445,7 +445,7 @@
 .fieldLabel {
   font-size: 0.92rem;
   font-weight: 700;
-  color: #173329;
+  color: #162c17;
 }
 
 .fieldHint {
@@ -462,10 +462,10 @@
 }
 
 .uploadBox {
-  border: 1px dashed rgba(45, 106, 79, 0.28);
+  border: 1px dashed rgba(44, 85, 48, 0.28);
   border-radius: 1.15rem;
   padding: 1rem;
-  background: linear-gradient(180deg, rgba(216, 243, 220, 0.26), rgba(255, 255, 255, 0.96));
+  background: linear-gradient(180deg, rgba(226, 234, 210, 0.26), rgba(255, 255, 255, 0.96));
   display: grid;
   gap: 0.85rem;
 }
@@ -491,7 +491,7 @@
   border-radius: 1rem;
   min-height: 8rem;
   background: #edf5f0;
-  border: 1px solid rgba(45, 106, 79, 0.12);
+  border: 1px solid rgba(44, 85, 48, 0.12);
 }
 
 .previewCard img {
@@ -521,8 +521,8 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 250, 247, 0.98)),
     repeating-linear-gradient(
       135deg,
-      rgba(183, 228, 199, 0.3),
-      rgba(183, 228, 199, 0.3) 0.75rem,
+      rgba(196, 214, 168, 0.3),
+      rgba(196, 214, 168, 0.3) 0.75rem,
       transparent 0.75rem,
       transparent 1.5rem
     );
@@ -531,7 +531,7 @@
 .placeholderValue {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: #173329;
+  color: #162c17;
 }
 
 .gridTwo {
@@ -602,7 +602,7 @@
 .itemTitle {
   margin: 0;
   font-weight: 700;
-  color: #173329;
+  color: #162c17;
 }
 
 .itemMeta {
@@ -648,8 +648,8 @@
 }
 
 .tabActive {
-  background: rgba(45, 106, 79, 0.14);
-  color: #1b4332;
+  background: rgba(44, 85, 48, 0.14);
+  color: #1e3d22;
 }
 
 .footerActions {

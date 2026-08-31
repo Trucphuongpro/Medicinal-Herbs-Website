@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   padding: var(--spacing-md);
-  background: rgba(15, 40, 30, 0.45);
+  background: rgba(20, 38, 22, 0.45);
   backdrop-filter: blur(2px);
   animation: fade var(--transition-normal) ease;
 }
@@ -21,7 +21,7 @@
   padding: 2rem 1.75rem 1.5rem;
   border-radius: 1.5rem;
   background: var(--color-bg);
-  box-shadow: 0 24px 60px rgba(15, 40, 30, 0.28);
+  box-shadow: 0 24px 60px rgba(20, 38, 22, 0.28);
   animation: rise var(--transition-normal) ease;
 }
 

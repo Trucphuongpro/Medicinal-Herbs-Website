@@ -13,8 +13,8 @@ const createImage = ({ title, subtitle, background, foreground, accent }) => {
       <path d="M380 130c84 32 172 112 172 226 0 120-84 198-214 198-118 0-198-76-198-186 0-130 106-220 240-238Z" fill="${foreground}" opacity="0.93" />
       <path d="M282 248c36-72 100-118 176-126-8 86-58 170-146 208-42 18-92 28-138 20 40-38 74-64 108-102Z" fill="#fff" opacity="0.82" />
       <rect x="62" y="540" width="320" height="108" rx="24" fill="rgba(255,255,255,0.86)" />
-      <text x="94" y="590" fill="#1b4332" font-size="40" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
-      <text x="94" y="626" fill="#2d6a4f" font-size="22" font-family="Inter, Arial, sans-serif">${subtitle}</text>
+      <text x="94" y="590" fill="#1e3d22" font-size="40" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
+      <text x="94" y="626" fill="#2c5530" font-size="22" font-family="Inter, Arial, sans-serif">${subtitle}</text>
     </svg>
   `;
 
@@ -28,9 +28,9 @@ const primaryGallery = [
     src: createImage({
       title: 'Atiso Do',
       subtitle: 'Tra thao moc',
-      background: '#d8f3dc',
-      foreground: '#2d6a4f',
-      accent: '#95d5b2',
+      background: '#e2ead2',
+      foreground: '#2c5530',
+      accent: '#a8c48a',
     }),
   },
   {

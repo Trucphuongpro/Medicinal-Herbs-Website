@@ -23,7 +23,7 @@
 .input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.15);
 }
 
 .input:disabled {

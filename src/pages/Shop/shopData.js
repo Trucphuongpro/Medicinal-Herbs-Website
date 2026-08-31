@@ -13,8 +13,8 @@ const createProductImage = ({ title, subtitle, background, foreground, accent })
       <path d="M242 104c54 18 114 68 114 146 0 72-52 120-130 120-70 0-118-46-118-112 0-84 70-142 134-154Z" fill="${foreground}" opacity="0.92" />
       <path d="M188 178c24-44 62-68 114-70-6 56-44 104-98 122-28 10-58 14-86 10 24-24 46-42 70-62Z" fill="#fff" opacity="0.82" />
       <rect x="42" y="336" width="220" height="82" rx="20" fill="rgba(255,255,255,0.86)" />
-      <text x="64" y="372" fill="#1b4332" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
-      <text x="64" y="400" fill="#2d6a4f" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
+      <text x="64" y="372" fill="#1e3d22" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
+      <text x="64" y="400" fill="#2c5530" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
     </svg>
   `;
 
@@ -76,9 +76,9 @@ export const products = [
     image: createProductImage({
       title: 'Atiso Do',
       subtitle: 'Tra thao moc',
-      background: '#d8f3dc',
-      foreground: '#2d6a4f',
-      accent: '#95d5b2',
+      background: '#e2ead2',
+      foreground: '#2c5530',
+      accent: '#a8c48a',
     }),
   },
   {

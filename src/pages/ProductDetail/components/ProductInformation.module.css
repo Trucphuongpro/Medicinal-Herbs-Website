@@ -2,7 +2,7 @@
   display: grid;
   gap: 1.25rem;
   padding: 1.5rem;
-  border: 1px solid rgba(45, 106, 79, 0.1);
+  border: 1px solid rgba(44, 85, 48, 0.1);
   border-radius: 1.5rem;
   background: #ffffff;
 }
@@ -17,7 +17,7 @@
   width: fit-content;
   padding: 0.4rem 0.8rem;
   border-radius: var(--radius-full);
-  background: rgba(216, 243, 220, 0.75);
+  background: rgba(226, 234, 210, 0.75);
   color: var(--color-primary-dark);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);

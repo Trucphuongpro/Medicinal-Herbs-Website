@@ -7,8 +7,8 @@
   gap: 1rem;
   padding: 1.5rem;
   border-radius: 1.75rem;
-  border: 1px solid rgba(45, 106, 79, 0.08);
-  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+  border: 1px solid rgba(44, 85, 48, 0.08);
+  background: linear-gradient(180deg, #fbfaf4 0%, #ffffff 100%);
 }
 
 .header {
@@ -33,11 +33,11 @@
   min-height: 22rem;
   border-radius: 1.5rem;
   background:
-    linear-gradient(135deg, rgba(216, 243, 220, 0.68), rgba(255, 255, 255, 0.9)),
+    linear-gradient(135deg, rgba(226, 234, 210, 0.68), rgba(255, 255, 255, 0.9)),
     repeating-linear-gradient(
       45deg,
-      rgba(45, 106, 79, 0.05) 0,
-      rgba(45, 106, 79, 0.05) 16px,
+      rgba(44, 85, 48, 0.05) 0,
+      rgba(44, 85, 48, 0.05) 16px,
       transparent 16px,
       transparent 32px
     );

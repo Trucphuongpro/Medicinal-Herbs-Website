@@ -3,8 +3,8 @@
   overflow: hidden;
   padding: 4.5rem 0 3rem;
   background:
-    radial-gradient(circle at top left, rgba(216, 243, 220, 0.95), transparent 42%),
-    linear-gradient(180deg, #f8fff8 0%, #ffffff 75%);
+    radial-gradient(circle at top left, rgba(226, 234, 210, 0.95), transparent 42%),
+    linear-gradient(180deg, #fbfaf3 0%, #ffffff 75%);
 }
 
 .hero::after {
@@ -14,7 +14,7 @@
   width: 20rem;
   height: 20rem;
   border-radius: 50%;
-  background: rgba(183, 228, 199, 0.35);
+  background: rgba(196, 214, 168, 0.35);
   filter: blur(10px);
 }
 
@@ -71,7 +71,7 @@
   width: fit-content;
   align-items: center;
   padding: 0.5rem 0.9rem;
-  border: 1px solid rgba(45, 106, 79, 0.12);
+  border: 1px solid rgba(44, 85, 48, 0.12);
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.86);
   color: var(--color-primary-dark);
@@ -118,7 +118,7 @@
 .primaryAction {
   background: var(--color-primary-dark);
   color: var(--color-text-inverse);
-  box-shadow: 0 12px 24px rgba(27, 67, 50, 0.14);
+  box-shadow: 0 12px 24px rgba(30, 61, 34, 0.14);
 }
 
 .primaryAction:hover {
@@ -126,7 +126,7 @@
 }
 
 .secondaryAction {
-  border: 1px solid rgba(27, 67, 50, 0.14);
+  border: 1px solid rgba(30, 61, 34, 0.14);
   background: rgba(255, 255, 255, 0.92);
   color: var(--color-primary-dark);
 }
@@ -156,8 +156,8 @@
   width: 0.7rem;
   height: 0.7rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2d6a4f, #95d5b2);
-  box-shadow: 0 0 0 6px rgba(183, 228, 199, 0.35);
+  background: linear-gradient(135deg, #2c5530, #a8c48a);
+  box-shadow: 0 0 0 6px rgba(196, 214, 168, 0.35);
 }
 
 .visual {
@@ -171,8 +171,8 @@
   overflow: hidden;
   border-radius: 2rem;
   padding: 0.65rem;
-  background: linear-gradient(180deg, #effaf1 0%, #dcefdc 100%);
-  box-shadow: 0 24px 40px rgba(20, 62, 46, 0.12);
+  background: linear-gradient(180deg, #f2f6e9 0%, #e4ecd6 100%);
+  box-shadow: 0 24px 40px rgba(24, 54, 28, 0.12);
 }
 
 /* Mosaic anh duoc lieu: 1 anh lon ben trai, 2 anh nho xep chong ben phai. */
@@ -190,7 +190,7 @@
   overflow: hidden;
   margin: 0;
   border-radius: 1.4rem;
-  background: #dcefdc;
+  background: #e4ecd6;
 }
 
 .galleryMain {
@@ -226,8 +226,8 @@
   padding: 1.15rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 1.5rem;
-  background: rgba(27, 67, 50, 0.92);
-  box-shadow: 0 20px 40px rgba(18, 52, 39, 0.18);
+  background: rgba(30, 61, 34, 0.92);
+  box-shadow: 0 20px 40px rgba(22, 46, 24, 0.18);
 }
 
 .statItem {

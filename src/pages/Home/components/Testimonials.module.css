@@ -36,12 +36,12 @@
   padding: 1.6rem;
   border-radius: 1.5rem;
   background: #ffffff;
-  border: 1px solid rgba(45, 106, 79, 0.08);
-  box-shadow: 0 14px 28px rgba(20, 62, 46, 0.06);
+  border: 1px solid rgba(44, 85, 48, 0.08);
+  box-shadow: 0 14px 28px rgba(24, 54, 28, 0.06);
 }
 
 .quoteMark {
-  color: rgba(45, 106, 79, 0.24);
+  color: rgba(44, 85, 48, 0.24);
   font-size: 3rem;
   line-height: 1;
 }

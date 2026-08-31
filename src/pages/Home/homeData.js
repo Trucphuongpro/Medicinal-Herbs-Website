@@ -14,8 +14,8 @@ const createSvgDataUri = ({ title, subtitle, background, foreground, accent }) =
       <path d="M198 182c18-40 58-72 102-76-4 50-36 104-84 124-30 12-62 16-90 14 18-28 42-46 72-62Z" fill="#fff" opacity="0.85" />
       <path d="M246 204c6 44-8 88-42 126 52-10 98-40 132-88-18 4-40 2-62-8-12-6-20-16-28-30Z" fill="#fff" opacity="0.56" />
       <rect x="42" y="338" width="196" height="78" rx="18" fill="rgba(255,255,255,0.86)" />
-      <text x="62" y="372" fill="#1b4332" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
-      <text x="62" y="398" fill="#2d6a4f" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
+      <text x="62" y="372" fill="#1e3d22" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700">${title}</text>
+      <text x="62" y="398" fill="#2c5530" font-size="16" font-family="Inter, Arial, sans-serif">${subtitle}</text>
     </svg>
   `;
 
@@ -63,9 +63,9 @@ export const featuredProducts = [
     image: createSvgDataUri({
       title: 'Atiso Do',
       subtitle: 'Tra thao moc',
-      background: '#d8f3dc',
-      foreground: '#2d6a4f',
-      accent: '#95d5b2',
+      background: '#e2ead2',
+      foreground: '#2c5530',
+      accent: '#a8c48a',
     }),
   },
   {

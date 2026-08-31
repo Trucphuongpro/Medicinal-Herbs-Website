@@ -9,11 +9,11 @@
   gap: 1.5rem;
   padding: 1.75rem;
   margin-bottom: 1.75rem;
-  border: 1px solid rgba(45, 106, 79, 0.1);
+  border: 1px solid rgba(44, 85, 48, 0.1);
   border-radius: 1.75rem;
   background:
     radial-gradient(circle at top right, rgba(234, 183, 101, 0.22), transparent 30%),
-    radial-gradient(circle at bottom left, rgba(183, 228, 199, 0.4), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(196, 214, 168, 0.4), transparent 34%),
     linear-gradient(180deg, var(--color-bg-warm) 0%, #ffffff 100%);
 }
 

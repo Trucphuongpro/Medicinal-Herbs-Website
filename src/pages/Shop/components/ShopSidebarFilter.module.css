@@ -4,9 +4,9 @@
   display: grid;
   gap: 1.25rem;
   padding: 1.25rem;
-  border: 1px solid rgba(45, 106, 79, 0.1);
+  border: 1px solid rgba(44, 85, 48, 0.1);
   border-radius: 1.5rem;
-  background: linear-gradient(180deg, #fbfdf9 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #fbfaf4 0%, #ffffff 100%);
 }
 
 .header {
@@ -40,7 +40,7 @@
   display: grid;
   gap: 0.85rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(45, 106, 79, 0.08);
+  border-top: 1px solid rgba(44, 85, 48, 0.08);
 }
 
 .groupTitle {
